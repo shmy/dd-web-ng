@@ -1,1 +1,109 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~flex.css";
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #FAFAFA;
+  overflow: hidden;
+  font-size: 14px;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "PingFang SC","Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+.t-ellip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rel {
+  position: relative;
+}
+.scroll {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.full {
+  height: 100%;
+  width: 100%;
+}
+.content {
+  box-sizing: border-box;
+}
+
+[flex~="dir:left"] > [flex-box="1"] {
+  width: 1px;
+}
+[flex~="dir:top"] > [flex-box="1"] {
+  height: 1px;
+}
+
+.xgplayer-inactive .xgplayer-controls, .xgplayer-is-live .xgplayer-controls>* {
+  display: flex !important;
+}
+
+* { outline: none }
+[hidden] { display: none !important;}
+.responsive {
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: auto;
+}
+
+@media screen and (max-width: 1400px)  {
+  .responsive {
+    width: 1000px;
+  }
+}
+@media screen and (max-width: 1200px)  {
+  .responsive {
+    width: 800px;
+  }
+}
+@media screen and (max-width: 800px)  {
+  .responsive {
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 600px)  {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.load-err-wrap {
+  text-align: center;
+  margin-top: 20px
+}
+.load-err-btn {
+  border: none;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  width: 220px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  color: #fff;
+  background-color: red;
+}
+.loadmore-warp {
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
+  .loadmore-icon {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+.no-more-warp {
+  text-align: center;
+  font-size: 16px;
+  color: #222;
+}

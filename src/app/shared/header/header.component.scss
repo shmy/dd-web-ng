@@ -1,0 +1,103 @@
+.header {
+  height: 56px;
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  &::after {
+    bottom: -5px;
+    box-shadow: inset 0px 4px 8px -3px rgba(17, 17, 17, .06);
+    content: "";
+    height: 5px;
+    left: 0;
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    z-index: 2001;
+  }
+  .header-left-sides,
+  .header-right-sides {
+    width: 240px;
+  }
+  .pack-btn {
+    margin-left: 20px;
+    //padding: 10px;
+    cursor: pointer;
+    //background-color: red;
+    border-radius: 5px;
+    >.iconfont {
+      font-size: 26px;
+    }
+  }
+  //.header-content {
+  //  max-width: 1248px;
+  //  height: 100%;
+  //  margin: 0 auto;
+    .logo {
+      height: 50px;
+      width: 200px;
+      //margin-left: 90px;
+    }
+    .search-input {
+      //background-color: red;
+      box-sizing: border-box;
+      padding-right: 10px;
+      >input {
+        display: block;
+        height: 35px;
+        width: 100%;
+        outline: none;
+        padding: 0 10px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border: 1px solid #dcdfe6;
+        -webkit-appearance: none;
+        border-radius: 4px;
+        //border-color: #CCCCCC;
+      }
+    //}
+  }
+  .search-result {
+    overflow-y: auto;
+    //width: 100%;
+    max-height: 300px;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 10px;
+    z-index: 2002;
+    background-color: #fff;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    >li {
+      height: 30px;
+      line-height: 30px;
+      padding: 3px 10px;
+      margin: 10px 0;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(22, 22, 22, .3);
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 800px)  {
+  .header {
+    .logo {
+      display: none;
+    }
+    .header-left-sides {
+      width: 60px;
+    }
+    .header-right-sides {
+      width: 0;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<div class="full scroll" #element appKeepScroll>
+  <div class="responsive">
+    <app-video-item [items]="items"></app-video-item>
+    <div [hidden]="!loadErr" class="load-err-wrap">
+      <button class="load-err-btn" (click)="handleFetch()">加载失败，点击重试！</button>
+    </div>
+    <div [hidden]="loadErr || noMore" class="loadmore-warp">
+      <img class="loadmore-icon" src="/assets/images/loading.svg" alt="">
+    </div>
+    <div class="no-more-warp" [hidden]="!noMore">
+      <span>- 没有更多数据了 -</span>
+    </div>
+  </div>
+
+</div>

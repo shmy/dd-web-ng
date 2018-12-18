@@ -1,0 +1,91 @@
+.video {
+  height: 600px;
+  width: 100%;
+  background-color: #000;
+}
+.main-title {
+  height: 60px;
+  line-height: 60px;
+  text-indent: 20px;
+  font-size: 20px;
+  color: #0af;
+}
+.detail-introduction {
+  padding: 0 20px 20px 20px;
+  box-sizing: border-box;
+}
+.video-name {
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+}
+.video-classify-name {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666;
+}
+.video-sub-introduce {
+  font-size: 16px;
+  color: #666;
+  margin-top: 0;
+}
+.video-btn-wrapper {
+  margin: 0;
+  padding: 0 20px;
+  box-sizing: border-box;
+  list-style: none;
+  flex-wrap: wrap;
+  max-height: 400px;
+  overflow: auto;
+}
+.video-btn {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 15px;
+  background-color: #ccc;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #333;
+  transition: .3s;
+  margin-bottom: 10px;
+  &.active {
+    color: #fff;
+    background-color: #0af;
+  }
+}
+
+.video-number {
+  font-size: 24px;
+  font-weight: 400;
+  color: red;
+}
+@media screen and (max-width: 1000px)  {
+  .video-btn-wrapper {
+    max-height: 300px;
+  }
+  .video {
+    height: 500px;
+  }
+}
+@media screen and (max-width: 800px)  {
+  .video-btn-wrapper {
+    max-height: 200px;
+  }
+  .video {
+    height: 400px;
+  }
+}
+@media screen and (max-width: 600px)  {
+  .video-btn-wrapper {
+    max-height: 100px;
+  }
+  .video {
+    height: 300px;
+  }
+}
+@media screen and (max-width: 400px)  {
+  .video {
+    height: 220px;
+  }
+}

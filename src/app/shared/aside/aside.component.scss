@@ -1,0 +1,53 @@
+.aside {
+  //width: 240px;
+  height: 100%;
+  background-color: #F5F5F5;
+  padding: 10px 0;
+  box-sizing: border-box;
+  //transition: width .2s;
+  .aside-item {
+    outline: none;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 20px;
+    transition: background-color .3s;
+    cursor: pointer;
+    font-size: 16px;
+    color: #232323;
+    >.iconfont {
+      font-size: 26px;
+      margin-right: 20px;
+    }
+    &.router-active, &:hover {
+      color: #000;
+
+    }
+    &.router-active {
+      background-color: #DCDCDC;
+      >.iconfont {
+        color: #FC0D1B;
+      }
+    }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+}
+@media screen and (max-width: 1200px)  {
+  .aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2002;
+  }
+  .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 2001;
+  }
+
+}

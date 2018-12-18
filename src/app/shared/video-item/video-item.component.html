@@ -1,0 +1,8 @@
+<ul class="video-list" flex="dir:left">
+  <li [routerLink]="'/video/' + item._id" class="video-list-item-wrap" *ngFor="let item of items">
+    <img class="video-thumbnail" appLazyLoad [src]="item.thumbnail" alt="">
+    <div class="video-name t-ellip">{{ item.name }}</div>
+    <div class="video-latest">{{ item.latest }}</div>
+    <div class="video-generated_at">{{ item.generated_at | timeAgo }}</div>
+  </li>
+</ul>

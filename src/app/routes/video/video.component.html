@@ -1,0 +1,36 @@
+<div class="full scroll">
+  <div class="responsive">
+    <!--<div id="player" class="video"></div>-->
+    <video #videoElement id="player" class="video" autoplay playsinline controls></video>
+    <div [hidden]="!loadErr" class="load-err-wrap">
+      <button class="load-err-btn" (click)="handleRefresh()">加载失败，点击重试！</button>
+    </div>
+    <div class="main-title">播放来源</div>
+    <ul flex="dir:left" class="video-btn-wrapper">
+      <li class="video-btn" (click)="playWithIndex(i)" [class.active]="videoIndex === i" *ngFor="let item of item.remote_url; let i = index;">
+        {{ item.tag }}
+      </li>
+    </ul>
+    <div class="main-title">视频介绍</div>
+    <div class="detail-introduction">
+      <h3>
+        <span class="video-name">
+          {{ item.name }}
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <span class="video-classify-name">{{ item.classify?.name }}</span>
+      </h3>
+      <p>
+        <span class="video-number">{{ item.number }}</span>
+        <span class="video-sub-introduce">
+           次浏览
+        </span>
+      </p>
+      <p class="video-sub-introduce">导演：{{ item.director }}</p>
+      <p class="video-sub-introduce">演员：{{ item.starring }}</p>
+      <p class="video-sub-introduce">简介：{{ item.introduce }}</p>
+    </div>
+
+    <div class="main-title">相关推荐</div>
+  </div>
+</div>
