@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {VideoService} from '../../service/video.service';
 import {of, Subject} from 'rxjs';
@@ -8,7 +8,7 @@ import {catchError, switchMap, tap} from 'rxjs/operators';
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss'],
 })
-export class VideoComponent implements OnInit {
+export class VideoComponent implements OnInit, OnDestroy {
   @ViewChild('videoElement') videoElement;
   item: any = {};
   hls: any;
@@ -86,5 +86,9 @@ export class VideoComponent implements OnInit {
     // native
     this.videoElement.nativeElement.pause();
     this.videoElement.nativeElement.src = '';
+  }
+
+  ngOnDestroy(): void {
+    this.destroyPlayer();
   }
 }

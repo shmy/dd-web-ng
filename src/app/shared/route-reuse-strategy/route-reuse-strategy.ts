@@ -17,7 +17,7 @@ export class SimpleRouteReuseStrategy implements RouteReuseStrategy {
   }
 
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    return true;
+    return !!route.data.keep;
   }
 
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {

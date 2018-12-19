@@ -8,7 +8,7 @@ import {IndexSectionComponent} from './shared/index-section/index-section.compon
 import {ImageLazyLoadModule} from './directive/image-lazy-load/image-lazy-load.module';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {VideoItemComponent} from './shared/video-item/video-item.component';
-import {DestroyPlayer} from './shared/guards/destroy-player';
+// import {DestroyPlayer} from './shared/guards/destroy-player';
 import {RouterModule, Routes} from '@angular/router';
 import {TimeAgoPipe} from './shared/time-ago.pipe';
 import {KeepScrollPositionDirective} from './directive/keep-scroll-position/kepp-scroll-position';
@@ -17,19 +17,28 @@ const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
+    data: {
+      keep: true,
+    }
   },
   {
     path: 'type/:id',
     component: TypeComponent,
+    data: {
+      keep: true,
+    }
   },
   {
     path: 'video/:id',
     component: VideoComponent,
-    canDeactivate: [DestroyPlayer]
+    // canDeactivate: [DestroyPlayer]
   },
   {
     path: 'search',
     component: SearchComponent,
+    data: {
+      keep: true,
+    }
   }
 ];
 @NgModule({
@@ -50,7 +59,7 @@ const routes: Routes = [
     ClickOutsideModule,
   ],
   providers: [
-    DestroyPlayer,
+    // DestroyPlayer,
   ],
 })
 export class DdRoutingModule { }
