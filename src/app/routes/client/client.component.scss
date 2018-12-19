@@ -1,0 +1,28 @@
+.download-wrap {
+  //margin-top: 20px;
+}
+.download-btn {
+  color: #fff;
+  display: inline-block;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  background-color: red;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-left: 20px;
+  &:first-of-type {
+    margin-left: 0;
+  }
+  &.stop {
+    cursor: not-allowed;
+  }
+  >.iconfont {
+    font-size: 26px;
+  }
+  .download-label {
+    vertical-align: top;
+  }
+}

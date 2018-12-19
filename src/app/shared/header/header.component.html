@@ -3,7 +3,7 @@
     <div class="pack-btn" (click)="handleSwitchPack()">
       <i class="iconfont icon-menu"></i>
     </div>
-    <img routerLink="/" class="logo" src="/assets/images/logo.png" alt="">
+    <img routerLink="/" class="logo" src="assets/images/logo.png" alt="">
   </div>
   <div class="search-input rel" flex-box="1" flex="dir:left cross:center">
     <input #searchBox [(ngModel)]="keyword" (input)="handleSearch()" (keyup.enter)="handleKeyEnter($event)" type="text" placeholder="搜索">

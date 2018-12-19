@@ -32,6 +32,11 @@ export class AsideComponent implements OnInit {
       name: '动漫',
       path: '/type/5b1fdbee30025ae5371ac363',
       icon: 'icon-dongman',
+    },
+    {
+      name: '客户端下载',
+      path: '/client',
+      icon: 'icon-yingyong',
     }
   ];
   constructor(public asideService: AsideService) { }

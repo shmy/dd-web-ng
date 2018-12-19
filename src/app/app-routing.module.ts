@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {NotFoundComponent} from './routes/not-found/not-found.component';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: environment.isElectron })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -12,6 +12,7 @@ import {VideoItemComponent} from './shared/video-item/video-item.component';
 import {RouterModule, Routes} from '@angular/router';
 import {TimeAgoPipe} from './shared/time-ago.pipe';
 import {KeepScrollPositionDirective} from './directive/keep-scroll-position/kepp-scroll-position';
+import {ClientComponent} from './routes/client/client.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,10 @@ const routes: Routes = [
     data: {
       keep: true,
     }
+  },
+  {
+    path: 'client',
+    component: ClientComponent,
   }
 ];
 @NgModule({
@@ -47,6 +52,7 @@ const routes: Routes = [
     TypeComponent,
     VideoComponent,
     SearchComponent,
+    ClientComponent,
     IndexSectionComponent,
     VideoItemComponent,
     KeepScrollPositionDirective,

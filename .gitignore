@@ -43,3 +43,5 @@ testem.log
 Thumbs.db
 
 update.sh
+/electron/dist/
+/electron/src/dd-web

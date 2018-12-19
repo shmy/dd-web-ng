@@ -16,7 +16,6 @@ import {FormsModule} from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +31,7 @@ import { environment } from '../environments/environment';
     LoadingBarRouterModule,
     ClickOutsideModule,
     FormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production && !environment.isElectron }),
   ],
   providers: [
     httpInterceptorProviders,
