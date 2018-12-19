@@ -13,6 +13,8 @@ import {NotFoundComponent} from './routes/not-found/not-found.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {FormsModule} from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import {FormsModule} from '@angular/forms';
     LoadingBarRouterModule,
     ClickOutsideModule,
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     httpInterceptorProviders,
