@@ -47,4 +47,17 @@ export class VideoService {
       }
     });
   }
+  checkClientForUpdate(platform, arch, currentVersion: string) {
+    // latestVersion: string
+    // canBeUpdated: boolean
+    // releaseNotes: string
+    // referenceLink: string
+    return this.http.get<any>(baseUrl + '/client/check-client-for-update', {
+      params: {
+        platform,
+        arch,
+        currentVersion,
+      }
+    });
+  }
 }

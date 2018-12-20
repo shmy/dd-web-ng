@@ -6,7 +6,7 @@ const Platform = builder.Platform;
 shelljs.cp('-R', path.join(__dirname, '../dist/dd-web'), path.join(__dirname, '/src'));
 // Promise is returned
 builder.build({
-  targets: Platform.MAC.createTarget(),
+  targets: Platform.WINDOWS.createTarget(),
   config: {
     electronVersion: '3.0.9',
     electronDownload: {
@@ -19,11 +19,17 @@ builder.build({
       app: path.join(__dirname, '/src'),
       output: path.join(__dirname, '/dist'),
     },
-    mac: {
+    win: {
       target: [
-        { target: 'dmg', arch: 'x64' },
+        { target: 'nsis', arch: 'ia32' },
       ]
     },
+    nsis: {
+      oneClick: false,
+      perMachine: true,
+      allowToChangeInstallationDirectory: true,
+      uninstallDisplayName: '卸载黑人视频',
+    }
   }
 })
   .then((result) => {

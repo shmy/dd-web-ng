@@ -2,15 +2,15 @@
   <div class="full" flex="dir:top main:center cross:center">
     <h3>移动版</h3>
     <div class="download-wrap">
-      <a [style.backgroundColor]="item.color" *ngFor="let item of appClients" class="download-btn" [class.stop]="!item.link" [href]="item.link ? item.link : ''" [download]="'黑人视频.' + item.extension">
+      <a [style.backgroundColor]="item.color" *ngFor="let item of appClients" class="download-btn" [class.stop]="!item.link" [attr.href]="item.link ? item.link : null" [attr.download]="item.link ? '黑人视频.' + item.extension : null">
         <i class="iconfont" [ngClass]="item.icon"></i>
         &nbsp;
         <span class="download-label">{{ item.platform }} {{ !item.link ? '(敬请期待)' : '' }}</span>
       </a>
     </div>
-    <h3>桌面版</h3>
-    <div class="download-wrap">
-      <a [style.backgroundColor]="item.color" *ngFor="let item of desktopClients" class="download-btn" [class.stop]="!item.link" [href]="item.link ? item.link : ''" [download]="'黑人视频.' + item.extension">
+    <h3 [hidden]="isElectron">桌面版</h3>
+    <div [hidden]="isElectron" class="download-wrap">
+      <a [style.backgroundColor]="item.color" *ngFor="let item of desktopClients" class="download-btn" [class.stop]="!item.link" [attr.href]="item.link ? item.link : null" [attr.download]="item.link ? '黑人视频.' + item.extension : null">
         <i class="iconfont" [ngClass]="item.icon"></i>
         &nbsp;
         <span class="download-label">{{ item.platform }} {{ !item.link ? '(敬请期待)' : '' }}</span>

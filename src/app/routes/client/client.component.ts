@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-client',
@@ -28,16 +29,17 @@ export class ClientComponent implements OnInit {
       color: '#0F69B5',
       icon: 'icon-windows',
       extension: 'exe',
-      link: ''
+      link: 'http://moqingchi.gz01.bdysite.com/dd_app/dd-desktop/黑人视频 Setup 0.0.1.exe'
     },
     {
       platform: 'Mac OS',
       icon: 'icon-macOS',
       color: '#0F151D',
       extension: 'dmg',
-      link: ''
+      link: 'http://moqingchi.gz01.bdysite.com/dd_app/dd-desktop/黑人视频-0.0.1.dmg'
     },
   ];
+  isElectron = environment.isElectron;
   constructor() { }
 
   ngOnInit() {

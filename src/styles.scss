@@ -42,7 +42,7 @@ html, body {
   display: flex !important;
 }
 
-* { outline: none }
+* { outline: none; user-select: none; }
 [hidden] { display: none !important;}
 .responsive {
   max-width: 1200px;

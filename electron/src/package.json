@@ -1,5 +1,8 @@
 {
   "name": "dd-desktop",
   "version": "0.0.1",
-  "main": "main.js"
+  "main": "main.js",
+  "description": "dd-desktop",
+  "author": "shmy",
+  "dependencies": {}
 }

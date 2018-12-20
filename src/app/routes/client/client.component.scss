@@ -1,3 +1,13 @@
+@media screen and (max-width: 420px)  {
+  .download-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  .download-btn {
+    margin-left: 0 !important;
+    margin-bottom: 20px;
+  }
+}
 .download-wrap {
   //margin-top: 20px;
 }
