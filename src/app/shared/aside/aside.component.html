@@ -9,7 +9,16 @@
      <i class="iconfont" [ngClass]="item.icon"></i>
      <span flex-box="1">{{ item.name }}</span>
    </div>
-
+   <hr class="split-line">
+   <div class="aside-item" flex="dir:left cross:center"
+        [routerLink]="item.path"
+        routerLinkActive="router-active"
+        [routerLinkActiveOptions]="{exact: true}"
+        *ngFor="let item of auxiliaryItems">
+     <i class="iconfont" [ngClass]="item.icon"></i>
+     <span flex-box="1">{{ item.name }}</span>
+   </div>
+   <hr class="split-line">
    <div *ngIf="isElectron" (click)="handleCheckForUpdates()" class="aside-item">
      <i class="iconfont icon-tv"></i>
      <span flex-box="1">

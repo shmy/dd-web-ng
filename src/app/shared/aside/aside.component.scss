@@ -5,6 +5,15 @@
   padding: 10px 0;
   box-sizing: border-box;
   //transition: width .2s;
+  .split-line {
+    margin: 20px 0;
+    //background-color: #DCDCDC;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #DCDCDC;
+    padding: 0;
+  }
   .aside-item {
     outline: none;
     height: 45px;

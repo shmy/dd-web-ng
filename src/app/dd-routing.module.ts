@@ -13,6 +13,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {TimeAgoPipe} from './shared/time-ago.pipe';
 import {KeepScrollPositionDirective} from './directive/keep-scroll-position/kepp-scroll-position';
 import {ClientComponent} from './routes/client/client.component';
+import {DownloadComponent} from './routes/download/download.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,13 @@ const routes: Routes = [
   {
     path: 'client',
     component: ClientComponent,
+  },
+  {
+    path: 'download',
+    component: DownloadComponent,
+    data: {
+      keep: true,
+    }
   }
 ];
 @NgModule({
@@ -53,6 +61,7 @@ const routes: Routes = [
     VideoComponent,
     SearchComponent,
     ClientComponent,
+    DownloadComponent,
     IndexSectionComponent,
     VideoItemComponent,
     KeepScrollPositionDirective,

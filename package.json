@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
+    "start:electron": "ng serve --host 0.0.0.0 --configuration=electron",
     "build": "ng build --prod",
     "build:electron": "ng build --prod --base-href='' --configuration=electron",
     "test": "ng test",

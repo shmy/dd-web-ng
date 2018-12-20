@@ -4,5 +4,7 @@
   "main": "main.js",
   "description": "dd-desktop",
   "author": "shmy",
-  "dependencies": {}
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.2"
+  }
 }

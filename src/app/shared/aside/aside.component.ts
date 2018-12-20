@@ -35,11 +35,13 @@ export class AsideComponent implements OnInit {
       path: '/type/5b1fdbee30025ae5371ac363',
       icon: 'icon-dongman',
     },
+  ];
+  auxiliaryItems: AsideItem[] = [
     {
       name: '客户端下载',
       path: '/client',
       icon: 'icon-yingyong',
-    }
+    },
   ];
   isElectron = environment.isElectron;
   currentVersion = '';
@@ -52,6 +54,11 @@ export class AsideComponent implements OnInit {
   ) { }
   ngOnInit() {
     if (this.isElectron) {
+      this.auxiliaryItems.unshift({
+        name: '下载列表',
+        path: '/download',
+        icon: 'icon-yingyong',
+      });
       // @ts-ignore
       this.currentVersion = electron.remote.app.getVersion();
       // @ts-ignore
@@ -80,7 +87,7 @@ export class AsideComponent implements OnInit {
         }
       }, _ => {
         this.isChecking = false;
-        window.alert('检查更新出错，请稍后再试！');
+        // window.alert('检查更新出错，请稍后再试！');
       });
   }
 

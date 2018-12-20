@@ -71,6 +71,18 @@
                 {
                   "replace": "src/index.html",
                   "with": "src/index.electron.html"
+                },
+                {
+                  "replace": "src/app/routes/download/download.component.html",
+                  "with": "src/app/routes/download.electron/download.component.html"
+                },
+                {
+                  "replace": "src/app/routes/download/download.component.scss",
+                  "with": "src/app/routes/download.electron/download.component.scss"
+                },
+                {
+                  "replace": "src/app/routes/download/download.component.ts",
+                  "with": "src/app/routes/download.electron/download.component.ts"
                 }
               ],
               "optimization": true,
@@ -90,6 +102,30 @@
                 }
               ],
               "serviceWorker": false
+            },
+            "electron-dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.electron.ts"
+                },
+                {
+                  "replace": "src/index.html",
+                  "with": "src/index.electron.dev.html"
+                },
+                {
+                  "replace": "src/app/routes/download/download.component.html",
+                  "with": "src/app/routes/download.electron/download.component.html"
+                },
+                {
+                  "replace": "src/app/routes/download/download.component.scss",
+                  "with": "src/app/routes/download.electron/download.component.scss"
+                },
+                {
+                  "replace": "src/app/routes/download/download.component.ts",
+                  "with": "src/app/routes/download.electron/download.component.ts"
+                }
+              ]
             }
           }
         },
@@ -101,6 +137,9 @@
           "configurations": {
             "production": {
               "browserTarget": "dd-web:build:production"
+            },
+            "electron": {
+              "browserTarget": "dd-web:build:electron-dev"
             }
           }
         },
