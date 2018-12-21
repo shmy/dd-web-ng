@@ -85,6 +85,17 @@
       }
     }
   }
+
+  .option-btn {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+    &:hover {
+      color: #0af;
+    }
+  }
 }
 
 

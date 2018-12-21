@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
+import {NotificationSharedServiceService} from './notification-shared-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FfmpegService {
 
-  constructor() { }
+  constructor(
+    private notificationSharedServiceService: NotificationSharedServiceService,
+  ) { }
   download(url, name: string) {
     // @ts-ignore
     let defaultPath = Electron.remote.app.getPath('videos');
@@ -20,6 +23,8 @@ export class FfmpegService {
         return;
       }
       this.doDownload(url, filename, name);
+      this.notificationSharedServiceService.successNotification('已添加下载');
+
     });
   }
   private doDownload(url, path, name: string) {

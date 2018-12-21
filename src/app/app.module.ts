@@ -13,6 +13,7 @@ import {NotFoundComponent} from './routes/not-found/not-found.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {FormsModule} from '@angular/forms';
+import {SnotifyModule, SnotifyService, ToastDefaults} from 'ng-snotify';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
@@ -31,11 +32,14 @@ import { environment } from '../environments/environment';
     LoadingBarRouterModule,
     ClickOutsideModule,
     FormsModule,
+    SnotifyModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production && !environment.isElectron }),
   ],
   providers: [
     httpInterceptorProviders,
     { provide: RouteReuseStrategy, useClass: SimpleRouteReuseStrategy },
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService,
   ],
   bootstrap: [AppComponent]
 })

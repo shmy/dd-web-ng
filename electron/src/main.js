@@ -5,7 +5,9 @@ const url = require('url');
 let win;
 function setFocus() {
   if (win) {
-    if (win.isMinimized()) {
+  
+    if (win.isFullScreen()) {
+      win.setFullScreen(false);
       win.restore();
     }
     win.focus();
@@ -13,7 +15,16 @@ function setFocus() {
 }
 
 function createWindow() {
-  win = new BrowserWindow({ width: 850, height: 600, show: false });
+  win = new BrowserWindow({
+    width: 850,
+    height: 600,
+    minWidth: 850,
+    minHeight: 600,
+    show: false,
+    center: true,
+    useContentSize: true,
+    frame: false,
+  });
   // load the dist folder from Angular
   win.loadURL(
     url.format({
@@ -21,6 +32,7 @@ function createWindow() {
       protocol: 'file:',
       slashes: true
     })
+   
   );
   
   // The following is optional and will open the DevTools:

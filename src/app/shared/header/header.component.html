@@ -1,13 +1,13 @@
-<div class="header" flex="dir:left">
+<div class="header drag" flex="dir:left">
   <div class="header-left-sides" flex="dir:left cross:center">
-    <div class="pack-btn" (click)="handleSwitchPack()">
+    <div class="pack-btn no-drag" (click)="handleSwitchPack()">
       <i class="iconfont icon-menu"></i>
     </div>
     <img routerLink="/" class="logo" src="assets/images/logo.png" alt="">
   </div>
   <div class="search-input rel" flex-box="1" flex="dir:left cross:center">
-    <input #searchBox [(ngModel)]="keyword" (input)="handleSearch()" (keyup.enter)="handleKeyEnter($event)" type="text" placeholder="搜索">
-    <ul #searchResult [hidden]="!shouldBeShow" class="search-result" (clickOutside)="onClickedOutside($event)">
+    <input class="no-drag" #searchBox [(ngModel)]="keyword" (input)="handleSearch()" (keyup.enter)="handleKeyEnter($event)" type="text" placeholder="搜索">
+    <ul #searchResult [hidden]="!shouldBeShow" class="search-result no-drag" (clickOutside)="onClickedOutside($event)">
       <li class="t-ellip" (click)="handleJump(item._id)" *ngFor="let item of searchResult$ | async; let index = index;">
         {{index + 1}}. {{item.name}}
       </li>
@@ -15,6 +15,10 @@
 
   </div>
   <div class="header-right-sides">
-
+    <div class="full" *ngIf="isElectron" flex="dir:left cross:center main:right">
+      <i (click)="handleMinimize()" class="iconfont icon-minimum option-btn"></i>
+      <i (click)="handleSwitchMaximize()" class="iconfont option-btn" [ngClass]="isMaximized ? 'icon--zuixiaohua' : 'icon--zuidahua'"></i>
+      <i (click)="handleQuit()" class="iconfont icon-tuichufffpx option-btn"></i>
+    </div>
   </div>
 </div>

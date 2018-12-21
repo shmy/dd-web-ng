@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AsideService} from '../../service/aside/aside.service';
 import {environment} from '../../../environments/environment';
 import {VideoService} from '../../service/video.service';
+import {NotificationSharedServiceService} from '../../service/notification-shared-service.service';
 
 @Component({
   selector: 'app-aside',
@@ -51,8 +52,13 @@ export class AsideComponent implements OnInit {
   constructor(
     public asideService: AsideService,
     private videoService: VideoService,
+    private notificationSharedServiceService: NotificationSharedServiceService,
   ) { }
   ngOnInit() {
+
+    // this.notificationSharedServiceService.infoNotification('检查更新是出错，请稍后再试！');
+    // this.notificationSharedServiceService.warningNotification('检查更新是出错，请稍后再试！');
+    // this.notificationSharedServiceService.errorNotification('检查更新是出错，请稍后再试！');
     if (this.isElectron) {
       this.auxiliaryItems.unshift({
         name: '下载列表',
@@ -78,16 +84,17 @@ export class AsideComponent implements OnInit {
       .subscribe(payload => {
         this.isChecking = false;
         if (payload.canBeUpdated) {
-          if (window.confirm(`发现新版本： v${payload.latestVersion}，是否前往下载？`)) {
-            // @ts-ignore
-            electron.shell.openExternal(payload.referenceLink);
-          }
+          this.notificationSharedServiceService.confirmNotification(`发现新版本： v${payload.latestVersion}，是否前往下载？`)
+            .subscribe(e => {
+              // @ts-ignore
+              Electron.shell.openExternal(payload.referenceLink);
+            }, _ => {});
         } else {
-          window.alert('你使用的已是最新版本！');
+          this.notificationSharedServiceService.successNotification('你使用的已是最新版本！');
         }
       }, _ => {
         this.isChecking = false;
-        window.alert('检查更新出错，请稍后再试！');
+        this.notificationSharedServiceService.errorNotification('检查更新时出错，请稍后再试！');
       });
   }
 

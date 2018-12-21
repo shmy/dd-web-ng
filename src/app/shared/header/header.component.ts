@@ -3,7 +3,8 @@ import {AsideService} from '../../service/aside/aside.service';
 import {Observable, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
 import {VideoService} from '../../service/video.service';
-import {ActivatedRoute, ActivationStart, NavigationEnd, Router} from '@angular/router';
+import {ActivationStart, Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +18,8 @@ export class HeaderComponent implements OnInit {
   searchResult$: Observable<any[]>;
   shouldBeShow = false;
   searchTerms = new Subject<string>();
+  isElectron = environment.isElectron;
+  isMaximized = false;
   constructor(
     private asideService: AsideService,
     private videoService: VideoService,
@@ -69,5 +72,25 @@ export class HeaderComponent implements OnInit {
       return;
     }
     this.shouldBeShow = false;
+  }
+  handleMinimize() {
+    // @ts-ignore
+    Electron.remote.getCurrentWindow().minimize();
+  }
+  handleSwitchMaximize() {
+    // @ts-ignore
+    const win = Electron.remote.getCurrentWindow();
+    if (win.isFullScreen()) {
+      win.setFullScreen(false);
+
+      this.isMaximized = false;
+      return;
+    }
+    win.setFullScreen(true);
+    this.isMaximized = true;
+  }
+  handleQuit() {
+    // @ts-ignore
+    Electron.remote.app.quit();
   }
 }

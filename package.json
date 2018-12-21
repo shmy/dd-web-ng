@@ -30,6 +30,7 @@
     "flex.css": "^1.1.7",
     "localforage": "^1.7.3",
     "ng-click-outside": "^4.0.0",
+    "ng-snotify": "^4.3.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
