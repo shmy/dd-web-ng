@@ -5,6 +5,7 @@
   "description": "dd-desktop",
   "author": "shmy",
   "dependencies": {
-    "fluent-ffmpeg": "^2.1.2"
+    "fluent-ffmpeg": "^2.1.2",
+    "lowdb": "^1.0.0"
   }
 }

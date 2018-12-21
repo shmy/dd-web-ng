@@ -23,6 +23,25 @@
   <app-root></app-root>
   <script src="assets/js/hls.min.js"></script>
   <script src="assets/js/plyr.min.js"></script>
-  <script>const electron = require('electron');const FluentFFmpeg = require('/Users/shmy/code/angular/dd-web/electron/src/node_modules/fluent-ffmpeg');</script>
+  <script>
+    const Path = require('path');
+    const Electron = require('electron');
+    const FluentFFmpeg = require('/Users/shmy/code/angular/dd-web/electron/src/node_modules/fluent-ffmpeg');
+    let DB;
+    ;(function () {
+      const LowDB = require('/Users/shmy/code/angular/dd-web/electron/src/node_modules/lowdb');
+      const FileSync = require('/Users/shmy/code/angular/dd-web/electron/src/node_modules/lowdb/adapters/FileSync');
+      let userDataDir = '/';
+      const DbName = 'db.json';
+      try {
+        userDataDir = Electron.remote.app.getPath('userData');
+      } catch (e) { }
+      const DbFilePath = userDataDir === '/' ? Path.join(__dirname, DbName) : Path.join(userDataDir, DbName);
+      const adapter = new FileSync(DbFilePath); // 申明一个适配器
+      DB = LowDB(adapter);
+      DB.defaults({ d: [] })
+        .write()
+    })();
+  </script>
 </body>
 </html>

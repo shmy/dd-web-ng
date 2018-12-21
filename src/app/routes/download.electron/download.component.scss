@@ -1,0 +1,38 @@
+.downloads-wrap {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  .download-item {
+    margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    background-color: #EEEEEE;
+    border-radius: 4px;
+    position: relative;
+    .progress-bar, .info-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+    }
+    .progress-bar {
+      border-radius: 4px;
+      background-image: linear-gradient(90deg, #4E7BF5, #1EECDE);
+      z-index: 1;
+    }
+    .info-bar {
+      width: 100%;
+      z-index: 2;
+      padding: 0 10px;
+      box-sizing: border-box;
+      .percent {
+        font-size: 12px;
+        color: #666;
+      }
+      .name {
+        color: #333;
+      }
+    }
+  }
+}

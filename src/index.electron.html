@@ -23,6 +23,28 @@
   <app-root></app-root>
   <script src="assets/js/hls.min.js"></script>
   <script src="assets/js/plyr.min.js"></script>
-  <script>const electron = require('electron');const FluentFFmpeg = require('fluent-ffmpeg');</script>
+  <script>
+    const Path = require('path');
+    const Electron = require('electron');
+    const FluentFFmpeg = require('fluent-ffmpeg');
+    const FfmpegFileName = process.platform === 'win32' ? 'ffmpeg.exe' : 'ffmpeg';
+    FluentFFmpeg.setFfmpegPath(Path.join(process.resourcesPath, '/ffmpeg/', FfmpegFileName));
+    console.log(Path.join(process.resourcesPath, '/ffmpeg/', FfmpegFileName));
+    let DB;
+    ;(function () {
+      const LowDB = require('lowdb');
+      const FileSync = require('lowdb/adapters/FileSync');
+      let userDataDir = '/';
+      const DbName = 'db.json';
+      try {
+        userDataDir = Electron.remote.app.getPath('userData');
+      } catch (e) { }
+      const DbFilePath = userDataDir === '/' ? Path.join(__dirname, DbName) : Path.join(userDataDir, DbName);
+      const adapter = new FileSync(DbFilePath); // 申明一个适配器
+      DB = LowDB(adapter);
+      DB.defaults({ d: [] })
+        .write()
+    })();
+  </script>
 </body>
 </html>

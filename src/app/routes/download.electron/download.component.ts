@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import {interval} from 'rxjs';
+import {map} from 'rxjs/operators';
+const stateIcons = [
+  'icon-wait',
+  'icon-miaojiesellerwait',
+  'icon-wancheng',
+  'icon-error',
+];
 // @ts-ignore
 @Component({
   selector: 'app-download',
@@ -6,28 +14,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./download.component.scss']
 })
 export class DownloadComponent implements OnInit {
-
-  constructor() { }
+  downloadItems: [];
+  constructor(
+  ) { }
 
   ngOnInit() {
-  }
-  handleDownload() {
+    interval(1000).pipe(
+      map(_ => {
+        // @ts-ignore
+        return DB.get('d').value();
+      })
+    ).subscribe(items => {
+      this.downloadItems = items;
+    });
     // @ts-ignore
-    FluentFFmpeg('https://youku163.zuida-bofang.com/20180724/9929_c2e11975/index.m3u8')
-      .on('progress', function(progress) {
-        console.log('Processing: ' + progress.percent + '% done');
-      })
-      .on('error', error => {
-        console.log(error);
-      })
-      .on('end', () => {
-        console.log('end');
-      })
-      .inputOptions('-threads 100')
-      .outputOptions('-c copy')
-      .outputOptions('-bsf:a aac_adtstoasc')
-      .output('/Users/shmy/code/angular/dd-web/1.mp4')
-      .run();
+    // console.log(DB.get('d').value());
   }
-
+  // handleDownload() {
+  //   // @ts-ignore
+  //   Electron.remote.dialog.showOpenDialog({
+  //     properties: ['openDirectory']
+  //   }, (paths: string[] | undefined) => {
+  //     if (!paths) {
+  //       return;
+  //     }
+  //     // @ts-ignore
+  //     const path = Path.join(paths[0], 'sss.mp4');
+  //     this.handleDown('https://sohu.zuida-163sina.com/20181220/r8NPCuOs/index.m3u8', path);
+  //   });
+  // }
+  // 0 准备中 1 下载中 2 下载成功 3 下载失败
+  getIconClass(state: number) {
+    return stateIcons[state];
+  }
 }

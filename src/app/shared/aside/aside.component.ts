@@ -57,10 +57,10 @@ export class AsideComponent implements OnInit {
       this.auxiliaryItems.unshift({
         name: '下载列表',
         path: '/download',
-        icon: 'icon-yingyong',
+        icon: 'icon-xiazai',
       });
       // @ts-ignore
-      this.currentVersion = electron.remote.app.getVersion();
+      this.currentVersion = Electron.remote.app.getVersion();
       // @ts-ignore
       this.platform = process.platform;
       // @ts-ignore
@@ -87,7 +87,7 @@ export class AsideComponent implements OnInit {
         }
       }, _ => {
         this.isChecking = false;
-        // window.alert('检查更新出错，请稍后再试！');
+        window.alert('检查更新出错，请稍后再试！');
       });
   }
 

@@ -3,6 +3,9 @@ import {ActivatedRoute} from '@angular/router';
 import {VideoService} from '../../service/video.service';
 import {of, Subject} from 'rxjs';
 import {catchError, switchMap, tap} from 'rxjs/operators';
+import {FfmpegService} from '../../service/ffmpeg.service';
+import {environment} from '../../../environments/environment';
+
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
@@ -16,9 +19,12 @@ export class VideoComponent implements OnInit, OnDestroy {
   videoIndex = -1;
   loadErr = false;
   getDetail = new Subject<string>();
+  isElectron = environment.isElectron;
+  isDownloadMode = false;
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,
+    private ffmpegService: FfmpegService,
     ) { }
   ngOnInit() {
     this.getDetail.pipe(
@@ -48,6 +54,13 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.getDetail.next(id);
   }
   playWithIndex(index: number) {
+    if (this.isDownloadMode) {
+      this.handleDoDownload(index);
+      return;
+    }
+    if (this.videoIndex === index) {
+      return;
+    }
     this.destroyPlayer();
     setTimeout(() => {
       this.videoIndex = index;
@@ -87,7 +100,12 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.videoElement.nativeElement.pause();
     this.videoElement.nativeElement.src = '';
   }
-
+  handleDoDownload(index: number) {
+    const item = this.item.remote_url[index];
+    const name = this.item.name + '-' + item.tag + '-' + Math.random().toString(36).substr(2) + '.mp4';
+    const url = item.url;
+    this.ffmpegService.download(url, name);
+  }
   ngOnDestroy(): void {
     this.destroyPlayer();
   }

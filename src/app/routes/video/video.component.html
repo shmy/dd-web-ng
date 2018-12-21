@@ -5,7 +5,10 @@
     <div [hidden]="!loadErr" class="load-err-wrap">
       <button class="load-err-btn" (click)="handleRefresh()">加载失败，点击重试！</button>
     </div>
-    <div class="main-title">播放来源</div>
+    <div class="main-title">播放列表
+      <span (click)="isDownloadMode = !isDownloadMode" class="download-control" *ngIf="isElectron">下载</span>
+      <span class="download-control-info" [hidden]="!isDownloadMode">点击列表项进行下载</span>
+    </div>
     <ul flex="dir:left" class="video-btn-wrapper">
       <li class="video-btn" (click)="playWithIndex(i)" [class.active]="videoIndex === i" *ngFor="let item of item.remote_url; let i = index;">
         {{ item.tag }}

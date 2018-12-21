@@ -15,6 +15,12 @@ builder.build({
     appId: 'tech.shmy.dd_desktop',
     productName: '黑人视频',
     asar: true,
+    extraResources: [
+      {
+        "from": "build/ffmpeg-macos64-shared",
+        "to": "ffmpeg",
+      }
+    ],
     directories: {
       app: path.join(__dirname, '/src'),
       output: path.join(__dirname, '/dist'),

@@ -1,3 +1,18 @@
 <div class="scroll full">
-  <button (click)="handleDownload()">开始下载</button>
+  <div class="responsive">
+    <!--<button (click)="handleDownload()">开始下载</button>-->
+    <ul class="downloads-wrap">
+      <li class="download-item" *ngFor="let item of downloadItems; let index = index;">
+        <div [style.width]="item.percent + '%'" class="progress-bar">
+        </div>
+        <div class="info-bar" flex="dir:left">
+          <div flex-box="1">
+            <span class="iconfont" style="color: yellowgreen; font-size: 16px" [ngClass]="getIconClass(item.state)"></span>
+            <span class="name">{{ index + 1 }}. {{ item.name }}</span>
+          </div>
+          <div class="percent">{{ item.percent }} %</div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -6,6 +6,7 @@
   },
   "exclude": [
     "test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "**/*/routes/download.electron/download.component.ts"
   ]
 }
