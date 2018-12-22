@@ -1,23 +1,37 @@
 <div class="scroll full">
   <div class="responsive">
+    <p class="download-alert">提示：<br>
+      1. 由于技术有限，暂时无法实现断点续载，请在下载时不要关闭软件！<br>
+      2. 若要恢复下载项，该下载项将会被重新下载！
+    </p>
     <div class="download-option" flex="dir:left">
+      <div [class.active]="tabIndex === -1" (click)="tabIndex = -1" class="download-option-item">全部</div>
+      <div [class.active]="tabIndex === 0" (click)="tabIndex = 0" class="download-option-item">解析中</div>
       <div [class.active]="tabIndex === 1" (click)="tabIndex = 1" class="download-option-item">正在下载</div>
       <div [class.active]="tabIndex === 2" (click)="tabIndex = 2" class="download-option-item">下载成功</div>
       <div [class.active]="tabIndex === 3" (click)="tabIndex = 3" class="download-option-item">下载失败</div>
+      <div [class.active]="tabIndex === 4" (click)="tabIndex = 4" class="download-option-item">下载停止</div>
     </div>
-    <div [hidden]="downloadItems.length !== 0" style="text-align: center; margin: 20px 0;">暂无数据</div>
-    <ul class="downloads-wrap">
-      <li (click)="handleItemClick(index)" class="download-item" *ngFor="let item of downloadItems; let index = index;">
-        <div [style.width]="item.percent + '%'" class="progress-bar">
-        </div>
-        <div class="info-bar" flex="dir:left">
-          <div flex-box="1">
-            <span class="iconfont" style="color: yellowgreen; font-size: 16px" [ngClass]="getIconClass(item.state)"></span>
-            <span class="name">{{ index + 1 }}. {{ item.name }}</span>
-          </div>
-          <div class="percent">{{ item.loaded }} / {{ item.total }} | {{ item.percent }} %</div>
-        </div>
-      </li>
-    </ul>
+    <!--<div [hidden]="downloadItems.length !== 0" style="text-align: center; margin: 20px 0;">暂无数据</div>-->
+    <table class="download-list-table" border="0">
+      <tr class="header">
+        <td>文件名</td>
+        <td>大小</td>
+        <td>状态</td>
+        <td>操作</td>
+      </tr>
+      <tr class="item" *ngFor="let item of downloadItems; let index = index;">
+        <td>{{ item.name }}</td>
+        <td>{{ item.total }}</td>
+        <td>{{ getStateTexts(item.state) }} {{ item.percent }}%</td>
+        <td>
+          <button (click)="handleStop(item)" *ngIf="[0, 1].indexOf(item.state) !== -1">停止</button>
+          <button (click)="handleLook(item)" *ngIf="[2].indexOf(item.state) !== -1">查看</button>
+          <button (click)="handleRetry(item)" *ngIf="[3, 4].indexOf(item.state) !== -1">重试</button>
+          <button (click)="handleRemove(item)" *ngIf="[2, 3, 4].indexOf(item.state) !== -1">移除</button>
+        </td>
+      </tr>
+    </table>
+
   </div>
 </div>

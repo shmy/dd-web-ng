@@ -19,7 +19,6 @@ export class VideoComponent implements OnInit, OnDestroy {
   loadErr = false;
   getDetail = new Subject<string>();
   isElectron = environment.isElectron;
-  isDownloadMode = false;
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,

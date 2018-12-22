@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import {NotificationSharedServiceService} from './notification-shared-service.service';
 import * as PrettyBytes from './pretty-bytes';
-import {load} from '@angular/core/src/render3';
-// console.log(PrettyBytes);
 @Injectable({
   providedIn: 'root'
 })
 export class FfmpegService {
-
+  ffQueues = {};
   constructor(
     private notificationSharedServiceService: NotificationSharedServiceService,
   ) { }
+  get QueueCount() {
+    return Object.keys(this.ffQueues).length;
+  }
   download(url, name: string) {
     // @ts-ignore
     let defaultPath = Electron.remote.app.getPath('videos');
@@ -29,13 +30,26 @@ export class FfmpegService {
 
     });
   }
+  initList() {
+    // @ts-ignore
+    const items = DB.get('d').value();
+    items.forEach(item => {
+      if ([0, 1].indexOf(item.state) !== -1) {
+        // @ts-ignore
+        DB.get('d')
+          .find({ url: item.url })
+          .assign({ state: 4, updated_at: Date.now(), })
+          .write();
+      }
+    });
+  }
   private doDownload(url, path, name: string) {
     // @ts-ignore
     DB.get('d')
       .remove({ url })
       .write();
     // @ts-ignore
-    FluentFFmpeg(url)
+    const f = FluentFFmpeg(url)
       .on('start', () => {
         this.notificationSharedServiceService.infoNotification(`${name} 已开始下载！`);
         // @ts-ignore
@@ -80,6 +94,18 @@ export class FfmpegService {
           .write();
       })
       .on('end', () => {
+        delete this.ffQueues[url];
+        // @ts-ignore
+        const p = DB.get('d').find({ url }).value();
+        if (p.percent !== 100) {
+          // @ts-ignore
+          DB.get('d')
+            .find({ url })
+            .assign({ state: 4, updated_at: Date.now(), })
+            .write();
+          this.notificationSharedServiceService.successNotification(`${name} 已停止！`);
+          return;
+        }
         this.notificationSharedServiceService.successNotification(`${name} 下载完毕！`);
         // @ts-ignore
         DB.get('d')
@@ -90,7 +116,19 @@ export class FfmpegService {
       .inputOptions('-threads 100')
       .outputOptions('-c copy')
       .outputOptions('-bsf:a aac_adtstoasc')
-      .output(path)
-      .run();
+      .output(path);
+    this.ffQueues[url] = f;
+    f.run();
+  }
+  stop(url: string) {
+    const f = this.ffQueues[url];
+    if (this.ffQueues[url]) {
+      f.ffmpegProc.stdin.write('q');
+    }
+  }
+  stopAll() {
+    Object.keys(this.ffQueues).forEach(key => {
+      this.ffQueues[key].ffmpegProc.stdin.write('q');
+    });
   }
 }

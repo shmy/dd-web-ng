@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import {FfmpegService} from './service/ffmpeg.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { environment } from '../environments/environment';
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
+    private ffmpegService: FfmpegService,
   ) {}
   ngOnInit(): void {
     this.router.events.pipe(
@@ -21,5 +23,8 @@ export class AppComponent implements OnInit {
       // @ts-ignore
       _hmt.push(['_trackPageview', event.urlAfterRedirects]);
     });
+    if (environment.isElectron) {
+      this.ffmpegService.initList();
+    }
   }
 }

@@ -2,11 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import {interval} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {NotificationSharedServiceService} from '../../service/notification-shared-service.service';
+import {FfmpegService} from '../../service/ffmpeg.service';
 const stateIcons = [
   'icon-wait',
   'icon-miaojiesellerwait',
   'icon-wancheng',
   'icon-error',
+  'icon-error',
+];
+const stateTexts = [
+  '正在准备',
+  '下载中',
+  '下载完毕',
+  '下载出错',
+  '停止下载',
 ];
 // @ts-ignore
 @Component({
@@ -16,61 +25,45 @@ const stateIcons = [
 })
 export class DownloadComponent implements OnInit {
   downloadItems = [];
-  tabIndex = 1;
+  tabIndex = -1;
   constructor(
     private notificationSharedServiceService: NotificationSharedServiceService,
+    private  ffmpegService: FfmpegService,
   ) { }
 
   ngOnInit() {
     interval(1000).pipe(
       map(_ => {
-        if (this.tabIndex === 1) {
-          // @ts-ignore
-          return DB.get('d').filter(item => [0, 1].indexOf(item.state) !== -1).sortBy(item => -item.created_at).value();
-        }
-        if (this.tabIndex === 2) {
-          // @ts-ignore
-          return DB.get('d').filter({ state: 2 }).sortBy(item => -item.updated_at).value();
-        }
-        if (this.tabIndex === 3) {
-          // @ts-ignore
-          return DB.get('d').filter({ state: 3 }).sortBy(item => -item.updated_at).value();
-        }
         // @ts-ignore
-        return DB.get('d').sortBy(item => -item.created_at).value();
+        let p = DB.get('d');
+        if (this.tabIndex !== -1) {
+          p = p.filter({ state: this.tabIndex });
+        }
+        return p.sortBy(item => -item.created_at).value();
       })
     ).subscribe(items => {
       this.downloadItems = items;
     });
+  }
+  handleLook(item) {
     // @ts-ignore
-    // console.log(DB.get('d').value());
+    Electron.shell.showItemInFolder(item.path);
   }
-  handleItemClick(index: number) {
-    const item: any = this.downloadItems[index];
-    if (item) {
-      switch (item.state) {
-        case 0:
-          this.notificationSharedServiceService.infoNotification('正在准备下载');
-          break;
-        case 1:
-          this.notificationSharedServiceService.infoNotification('正在下载');
-          break;
-        case 2:
-          // @ts-ignore
-          Electron.shell.showItemInFolder(item.path);
-          break;
-        case 3:
-          this.notificationSharedServiceService.confirmNotification(`${name} 下载失败！是否从列表删除？`)
-            .subscribe(_ => {
-              // @ts-ignore
-              DB.get('d').remove({ url: item.url }).write();
-            }, _ => {});
-          break;
-      }
-    }
+  handleStop(item) {
+    this.ffmpegService.stop(item.url);
   }
-  // 0 准备中 1 下载中 2 下载成功 3 下载失败
+  handleRemove(item) {
+    // @ts-ignore
+    DB.get('d').remove({ url: item.url }).write();
+  }
+  handleRetry(item) {
+    this.ffmpegService.download(item.url, item.name);
+  }
+  // 0 准备中 1 下载中 2 下载成功 3 下载失败 4 已停止
   getIconClass(state: number) {
     return stateIcons[state];
+  }
+  getStateTexts(state: number) {
+    return stateTexts[state];
   }
 }

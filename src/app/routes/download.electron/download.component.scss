@@ -1,3 +1,30 @@
+.download-list-table {
+  width: 100%;
+  text-indent: 10px;
+  .header {
+    background-color: #ded9d9;
+    color: #666;
+    height: 30px;
+    line-height: 30px;
+  }
+  .item {
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    &:hover {
+      background-color: rgb(242, 242, 242);
+    }
+  }
+}
+
+.download-alert {
+  background-color: #fef0f0;
+  color: #f56c6c;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 10px 0 0 0;
+  box-sizing: border-box;
+}
 .download-option {
   height: 40px;
   line-height: 40px;

@@ -6,6 +6,7 @@ import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'r
 import {VideoService} from '../../service/video.service';
 import {ActivationStart, Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
+import {FfmpegService} from '../../service/ffmpeg.service';
 
 @Component({
   selector: 'app-header',
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit {
     private videoService: VideoService,
     private router: Router,
     private _location: Location,
+    private ffmpegService: FfmpegService,
               ) { }
 
   ngOnInit() {
@@ -100,10 +102,23 @@ export class HeaderComponent implements OnInit {
     this.isMaximized = true;
   }
   handleQuit() {
-    // @ts-ignore
-    Electron.remote.app.quit();
+    const QueueCount = this.ffmpegService.QueueCount;
+    if (QueueCount === 0) {
+      this.doQuit();
+      return;
+    }
+    if (confirm(`还有${QueueCount}项下载正在进行，退出后将停止下载，是否继续退出？`)) {
+      this.ffmpegService.stopAll();
+      setTimeout(() => {
+        this.doQuit();
+      });
+    }
   }
   handleBackRouter() {
     this._location.back();
+  }
+  private doQuit() {
+    // @ts-ignore
+    Electron.remote.app.quit();
   }
 }

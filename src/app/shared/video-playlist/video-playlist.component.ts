@@ -27,7 +27,10 @@ export class VideoPlaylistComponent implements OnInit {
   handelDoDownload(event: MouseEvent, index: number) {
     event.stopPropagation();
     const item = this.items[index];
-    const name = this.name + '-' + item.tag + '-' + Math.random().toString(36).substr(2) + '.mp4';
+    let name = this.name + '-' + Math.random().toString(36).substr(2).toUpperCase() + '-' + item.tag + '.mp4';
+    name = name.replace(/\//g, '-')
+      .replace(/\\/g, '-')
+      .replace(/:/g, '-');
     const url = item.url;
     this.ffmpegService.download(url, name);
   }
