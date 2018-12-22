@@ -1,8 +1,14 @@
-.video {
-  height: 600px;
+.video-player-warp {
+  height: 520px;
   width: 100%;
-  background-color: #000;
+  //background-color: #fff;
 }
+.video-player {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
 .download-control {
   font-size: 12px;
   padding: 3px 20px;
@@ -69,36 +75,48 @@
 }
 
 .video-number {
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: bold;
   color: red;
 }
 @media screen and (max-width: 1000px)  {
   .video-btn-wrapper {
     max-height: 300px;
   }
-  .video {
-    height: 500px;
+  .video-player-warp {
+    height: 400px;
   }
+}
+@media screen and (max-width: 1000px)  {
+  .video-btn-wrapper {
+    max-height: 300px;
+  }
+  .video-player-warp {
+    height: 400px;
+  }
+  //.video-playlist {
+  //  display: none;
+  //}
 }
 @media screen and (max-width: 800px)  {
   .video-btn-wrapper {
     max-height: 200px;
   }
-  .video {
+  .video-player-warp {
     height: 400px;
   }
+
 }
 @media screen and (max-width: 600px)  {
   .video-btn-wrapper {
     max-height: 100px;
   }
-  .video {
+  .video-player-warp {
     height: 300px;
   }
 }
 @media screen and (max-width: 400px)  {
-  .video {
+  .video-player-warp {
     height: 220px;
   }
 }

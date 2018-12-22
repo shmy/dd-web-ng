@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {NotificationSharedServiceService} from './notification-shared-service.service';
-
+import * as PrettyBytes from './pretty-bytes';
+import {load} from '@angular/core/src/render3';
+// console.log(PrettyBytes);
 @Injectable({
   providedIn: 'root'
 })
@@ -35,7 +37,7 @@ export class FfmpegService {
     // @ts-ignore
     FluentFFmpeg(url)
       .on('start', () => {
-        console.log('download start');
+        this.notificationSharedServiceService.infoNotification(`${name} 已开始下载！`);
         // @ts-ignore
         DB.get('d').push({
           url,
@@ -43,27 +45,34 @@ export class FfmpegService {
           name,
           state: 0,
           percent: 0,
+          total: '0 B',
+          loaded: '0 B',
           created_at: Date.now(),
           updated_at: Date.now(),
         }).write();
       })
       .on('progress', progress => {
-        if (!progress) {
+        if (!progress.percent) {
           return;
         }
-        console.log('download progress');
-        let percent = +progress.percent.toFixed(2);
+        // console.log('download progress');
+        let loaded = progress.targetSize;
+        let total = +((loaded / (progress.percent / 100)).toFixed(2));
+        loaded = PrettyBytes(loaded * 1024);
+        total = PrettyBytes(total * 1024);
+        let percent = +(progress.percent.toFixed(2));
         if (percent > 100) {
           percent = 100;
+          loaded = total;
         }
         // @ts-ignore
         DB.get('d')
           .find({ url })
-          .assign({ state: 1, percent, updated_at: Date.now(), })
+          .assign({ state: 1, percent, loaded, total, updated_at: Date.now(), })
           .write();
       })
-      .on('error', error => {
-        console.log('download error', error);
+      .on('error', _ => {
+        this.notificationSharedServiceService.errorNotification(`${name} 下载失败！`);
         // @ts-ignore
         DB.get('d')
           .find({ url })
@@ -71,7 +80,7 @@ export class FfmpegService {
           .write();
       })
       .on('end', () => {
-        console.log('download end');
+        this.notificationSharedServiceService.successNotification(`${name} 下载完毕！`);
         // @ts-ignore
         DB.get('d')
           .find({ url })

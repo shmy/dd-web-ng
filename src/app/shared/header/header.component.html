@@ -1,7 +1,8 @@
 <div class="header drag" flex="dir:left">
   <div class="header-left-sides" flex="dir:left cross:center">
-    <div class="pack-btn no-drag" (click)="handleSwitchPack()">
-      <i class="iconfont icon-menu"></i>
+    <div class="pack-btn no-drag">
+      <i class="iconfont icon-menu" (click)="handleSwitchPack()"></i>
+      <i (click)="handleBackRouter()" [hidden]="!isShowBack" style="margin-left: 5px" class="iconfont icon-rollback"></i>
     </div>
     <img routerLink="/" class="logo" src="assets/images/logo.png" alt="">
   </div>

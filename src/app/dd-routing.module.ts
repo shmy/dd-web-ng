@@ -14,6 +14,7 @@ import {TimeAgoPipe} from './shared/time-ago.pipe';
 import {KeepScrollPositionDirective} from './directive/keep-scroll-position/kepp-scroll-position';
 import {ClientComponent} from './routes/client/client.component';
 import {DownloadComponent} from './routes/download/download.component';
+import {VideoPlaylistComponent} from './shared/video-playlist/video-playlist.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,7 @@ const routes: Routes = [
     DownloadComponent,
     IndexSectionComponent,
     VideoItemComponent,
+    VideoPlaylistComponent,
     KeepScrollPositionDirective,
     TimeAgoPipe,
   ],

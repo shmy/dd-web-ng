@@ -1,0 +1,20 @@
+<div class="video-playlist scroll" [class.is-side]="isSide">
+  <div class="video-title">
+    <span>播放列表</span>
+  </div>
+  <ul flex="dir:left" class="video-playlist-wrap">
+    <li flex="dir:left" (click)="playWithIndex(i)" [class.active]="videoIndex === i" class="video-playlist-item" *ngFor="let curr of items; let i = index;">
+      <img class="video-thumbnail" [src]="thumbnail" alt="">
+      <div flex-box="1" flex="dir:top main:justify">
+        <div class="video-playlist-name">{{ name }}</div>
+        <div flex="dir:left main:justify">
+          <span class="video-playlist-tag" flex-box="1">{{ curr.tag }}</span>
+          <a href="javascript:void(0);" class="download-btn" *ngIf="isElectron" (click)="handelDoDownload($event, i)">
+            <i class="iconfont icon-xiazai"></i>
+            下载
+          </a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

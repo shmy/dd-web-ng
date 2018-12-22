@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {Location} from '@angular/common';
 import {AsideService} from '../../service/aside/aside.service';
 import {Observable, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
@@ -20,13 +21,22 @@ export class HeaderComponent implements OnInit {
   searchTerms = new Subject<string>();
   isElectron = environment.isElectron;
   isMaximized = false;
+  isShowBack = false;
   constructor(
     private asideService: AsideService,
     private videoService: VideoService,
     private router: Router,
+    private _location: Location,
               ) { }
 
   ngOnInit() {
+    this.router.events.pipe(
+      filter(event => {
+        return event instanceof ActivationStart;
+      })
+    ).subscribe((event: ActivationStart) => {
+     this.isShowBack = event.snapshot.routeConfig.path === 'video/:id';
+    });
     this.router.events.pipe(
       filter(event => {
         return event instanceof ActivationStart;
@@ -92,5 +102,8 @@ export class HeaderComponent implements OnInit {
   handleQuit() {
     // @ts-ignore
     Electron.remote.app.quit();
+  }
+  handleBackRouter() {
+    this._location.back();
   }
 }
