@@ -1,0 +1,45 @@
+<div style="padding: 10px; box-sizing: border-box">
+  <ul *ngIf="hasQuery" class="scrolling-wrapper">
+    <li (click)="handleChangePid(item.value)" [class.active]="item.value === filterParams?.pid"
+        *ngFor="let item of searchClasses">
+      {{ item.title }}
+    </li>
+  </ul>
+  <ul *ngIf="hasQuery" class="scrolling-wrapper">
+    <li (click)="handleChangeQuery(item.value)" [class.active]="item.value === filterParams?.query"
+        *ngFor="let item of querys">
+      {{ item.title }}
+    </li>
+  </ul>
+  <ul *ngIf="!hasQuery" class="scrolling-wrapper">
+    <li (click)="handleChangePid(item._id)" [class.active]="item._id === filterParams?.pid"
+        *ngFor="let item of classes">
+      {{ item.name }}
+    </li>
+  </ul>
+  <ul class="scrolling-wrapper">
+    <li (click)="handleChangeSource(item.value)" [class.active]="item.value === filterParams?.source"
+        *ngFor="let item of sources">
+      {{ item.title }}
+    </li>
+  </ul>
+  <ul class="scrolling-wrapper">
+    <li (click)="handleChangeSort(item.value)" [class.active]="item.value === filterParams?.sort"
+        *ngFor="let item of sorts">
+      {{ item.title }}
+    </li>
+  </ul>
+  <ul class="scrolling-wrapper">
+    <li (click)="handleChangeYear(item.value)" [class.active]="item.value === filterParams?.year"
+        *ngFor="let item of years">
+      {{ item.title }}
+    </li>
+  </ul>
+  <ul class="scrolling-wrapper">
+    <li (click)="handleChangeArea(item.value)" [class.active]="item.value === filterParams?.area"
+        *ngFor="let item of areas">
+      {{ item.title }}
+    </li>
+  </ul>
+
+</div>

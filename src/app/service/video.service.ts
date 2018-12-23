@@ -14,9 +14,13 @@ export class VideoService {
   getVideoInfo(id: string) {
     return this.http.get<any>(baseUrl + '/video/' + id);
   }
-  getVideoListByPage(id: string, page: number = 1, per_page: number = 20) {
-    return this.http.get<any>(baseUrl + '/classification/' + id, {
+  getVideoListByPage(pid, sort, area, year, source: string, page: number = 1, per_page: number = 20) {
+    return this.http.get<any>(baseUrl + '/classification/' + pid, {
       params: {
+        sort,
+        area,
+        year,
+        source,
         page: page.toString(),
         per_page: per_page.toString(),
       }
@@ -35,13 +39,19 @@ export class VideoService {
       }
     });
   }
-  getVideoSearchResultByPaging(keyword: string, page: number = 1, per_page: number = 20) {
+  getVideoSearchResultByPaging(keyword, pid, sort, area, year, source, query: string, page: number = 1, per_page: number = 20) {
     if (!keyword.trim()) {
       return of({ result: [] });
     }
     return this.http.get<any>(baseUrl + '/video/search', {
       params: {
+        pid,
+        sort,
+        area,
+        year,
+        source,
         keyword,
+        query,
         page: page.toString(),
         per_page: per_page.toString(),
       }

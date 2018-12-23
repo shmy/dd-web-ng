@@ -1,5 +1,6 @@
 <div class="full scroll" #element appKeepScroll>
   <div class="responsive">
+    <app-video-filter (filterParamsChange)="handleFilterParamsChange($event)" [(filterParams)]="filter" [classes]="classes"></app-video-filter>
     <app-video-item [items]="items"></app-video-item>
     <div [hidden]="!loadErr" class="load-err-wrap">
       <button class="load-err-btn" (click)="handleFetch()">加载失败，点击重试！</button>

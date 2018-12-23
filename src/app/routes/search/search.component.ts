@@ -4,6 +4,14 @@ import {VideoService} from '../../service/video.service';
 import {debounceTime, distinct, filter, flatMap, tap} from 'rxjs/operators';
 import {fromEvent} from 'rxjs';
 
+const getDefaultParams = (pid: string = '') => ({
+  pid,
+  query: '2',
+  year: '',
+  area: '',
+  sort: '1',
+  source: '',
+});
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -18,6 +26,7 @@ export class SearchComponent implements OnInit {
   last_page = 2;
   loadErr = false;
   loading = false;
+  filter = getDefaultParams();
   get noMore()  {
     return this.page >= this.last_page;
   }
@@ -50,7 +59,16 @@ export class SearchComponent implements OnInit {
   getHttpStream() {
     this.loadErr = false;
     this.loading = true;
-    return this.videoService.getVideoSearchResultByPaging(this.keyword, this.page, this.per_page).pipe(
+    return this.videoService.getVideoSearchResultByPaging(
+      this.keyword,
+      this.filter.pid,
+      this.filter.sort,
+      this.filter.area,
+      this.filter.year,
+      this.filter.source,
+      this.filter.query,
+      this.page,
+      this.per_page).pipe(
       tap(_ => this.loading = false)
     );
   }
@@ -79,5 +97,9 @@ export class SearchComponent implements OnInit {
         this.loading = false;
       }, _ => this.loadErr = true);
   }
-
+  handleFilterParamsChange() {
+    this.page = 1;
+    this.items = [];
+    this.handleFetch();
+  }
 }

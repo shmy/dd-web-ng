@@ -1,0 +1,25 @@
+
+.scrolling-wrapper {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  > li {
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    color: #656565;
+    cursor: pointer;
+    &.active {
+      background-color: #efefef;
+      color: #000;
+    }
+    //background-color: red;
+    //margin-left: 20px;
+    //width: 200px;
+    //float: left;
+  }
+}
