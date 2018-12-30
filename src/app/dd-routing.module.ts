@@ -16,6 +16,7 @@ import {ClientComponent} from './routes/client/client.component';
 import {DownloadComponent} from './routes/download/download.component';
 import {VideoPlaylistComponent} from './shared/video-playlist/video-playlist.component';
 import {VideoFilterComponent} from './shared/video-filter/video-filter.component';
+import {CircleBtnComponent} from './shared/circle-btn/circle-btn.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,7 @@ const routes: Routes = [
     VideoItemComponent,
     VideoPlaylistComponent,
     VideoFilterComponent,
+    CircleBtnComponent,
     KeepScrollPositionDirective,
     TimeAgoPipe,
   ],

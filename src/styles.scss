@@ -134,3 +134,41 @@ html, body {
 .plyr--video, .plyr__video-wrapper {
   height: 100%;
 }
+
+
+
+//鼠标点击浮出
+.fixed-item {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  //background-color: red;
+  z-index: 3000;
+  opacity: 0;
+  transform: scale(1) translateY(0);
+  animation: 1.2s animation-fu linear;
+  .iconfont {
+    font-size: 32px;
+  }
+}
+@keyframes animation-fu {
+  0% {
+    opacity: .3;
+    transform: scale(.8) translateY(0);
+  }
+  33.33% {
+    opacity: .7;
+    transform: scale(1) translateY(-50px);
+  }
+  66.66% {
+    opacity: 1;
+    transform: scale(1) translateY(-70px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1) translateY(-100px);
+  }
+}

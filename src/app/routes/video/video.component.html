@@ -2,18 +2,25 @@
   <div class="responsive">
     <div style="height: 20px"></div>
     <div class="video-player-warp" flex="dir:left">
-      <div flex-box="1">
-        <video #videoElement class="video-player" autoplay playsinline controls></video>
+      <div class="rel" flex-box="1">
+        <video #videoElement class="video-player" autoplay playsinline controls>
+        </video>
+        <div [hidden]="!showNextMask" class="next-mask" flex="dir:top main:center cross:center">
+          <app-circle-btn (OnConfirm)="handleConfirmNext()" #circleBtn></app-circle-btn>
+          <div class="next-tip">接下来播放 {{ nextTipText }}</div>
+        </div>
       </div>
-      <app-video-playlist [isSide]="true" (OnIndexChange)="playWithIndex($event)" [videoIndex]="videoIndex" [name]="item.name" [thumbnail]="item.thumbnail" [items]="item.remote_url"></app-video-playlist>
+      <app-video-playlist [isSide]="true" (OnIndexChange)="playWithIndex($event)" [videoIndex]="videoIndex"
+                          [name]="item.name" [thumbnail]="item.thumbnail"
+                          [items]="item.remote_url"></app-video-playlist>
 
     </div>
     <div [hidden]="!loadErr" class="load-err-wrap">
       <button class="load-err-btn" (click)="handleRefresh()">加载失败，点击重试！</button>
     </div>
 
-    <app-video-playlist (OnIndexChange)="playWithIndex($event)" [videoIndex]="videoIndex" [name]="item.name" [thumbnail]="item.thumbnail" [items]="item.remote_url"></app-video-playlist>
-
+    <app-video-playlist (OnIndexChange)="playWithIndex($event)" [videoIndex]="videoIndex" [name]="item.name"
+                        [thumbnail]="item.thumbnail" [items]="item.remote_url"></app-video-playlist>
     <div class="main-title">《{{ item.name }}》介绍</div>
     <div class="detail-introduction">
 
@@ -30,6 +37,8 @@
       <p class="video-sub-introduce">简介：{{ item.introduce }}</p>
     </div>
 
-    <div class="main-title">相关推荐</div>
+    <!--<div class="main-title">相关视频</div>-->
+
+    <div id="share" data-wechat-url="https://v.minetime.cn" style="text-align: center; margin-bottom: 20px"></div>
   </div>
 </div>

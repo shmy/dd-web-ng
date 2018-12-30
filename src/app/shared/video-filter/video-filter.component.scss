@@ -6,16 +6,19 @@
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
+  height: 40px;
+  line-height: 40px;
   > li {
     display: inline-block;
-    height: 35px;
-    line-height: 35px;
+    height: 30px;
+    line-height: 30px;
     padding: 0 10px;
     color: #656565;
     cursor: pointer;
     &.active {
       background-color: #efefef;
-      color: #000;
+      border-radius: 4px;
+      color: #FA6F22;
     }
     //background-color: red;
     //margin-left: 20px;

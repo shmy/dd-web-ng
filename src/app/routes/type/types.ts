@@ -25,6 +25,7 @@ export const sorts = [
 
 export const years = [
   {'title': '不限年代', 'key': 'year', 'value': ''},
+  {'title': '2019', 'key': 'year', 'value': '2019'},
   {'title': '2018', 'key': 'year', 'value': '2018'},
   {'title': '2017', 'key': 'year', 'value': '2017'},
   {'title': '2016', 'key': 'year', 'value': '2016'},

@@ -27,6 +27,7 @@ export class SearchComponent implements OnInit {
   loadErr = false;
   loading = false;
   filter = getDefaultParams();
+  classes = [];
   get noMore()  {
     return this.page >= this.last_page;
   }

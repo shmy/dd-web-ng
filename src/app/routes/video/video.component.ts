@@ -4,6 +4,7 @@ import {VideoService} from '../../service/video.service';
 import {of, Subject} from 'rxjs';
 import {catchError, switchMap, tap} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
+import {CircleBtnComponent} from '../../shared/circle-btn/circle-btn.component';
 
 @Component({
   selector: 'app-video',
@@ -12,6 +13,7 @@ import {environment} from '../../../environments/environment';
 })
 export class VideoComponent implements OnInit, OnDestroy {
   @ViewChild('videoElement') videoElement;
+  @ViewChild('circleBtn') circleBtn: CircleBtnComponent;
   item: any = {};
   hls: any;
   player: any = null;
@@ -19,10 +21,18 @@ export class VideoComponent implements OnInit, OnDestroy {
   loadErr = false;
   getDetail = new Subject<string>();
   isElectron = environment.isElectron;
+  showNextMask = false;
+  get nextTipText() {
+    if (this.item.remote_url && this.item.remote_url[this.videoIndex + 1]) {
+      return this.item.remote_url[this.videoIndex + 1].tag;
+    }
+    return '';
+  }
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,
-    ) { }
+  ) {
+  }
   ngOnInit() {
     this.getDetail.pipe(
       tap(_ => this.loadErr = false),
@@ -38,6 +48,19 @@ export class VideoComponent implements OnInit, OnDestroy {
       if (payload) {
         this.item = payload;
         this.playWithIndex(0);
+        if (!this.isElectron) {
+          // @ts-ignore
+          socialShare('#share', {
+            sites: ['wechat', 'qzone', 'qq', 'weibo'],
+            url: window.location.href,
+            source: 'https://v.shmy.tech',
+            title: `《${this.item.name}》在线观看 - 黑人视频`,
+            description: this.item.introduce,
+            image: this.item.thumbnail,
+            wechatQrcodeTitle: '微信扫一扫：分享给朋友',
+            wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本页面分享至朋友圈。</p>',
+          });
+        }
       }
     });
     this.route.paramMap.subscribe(e => {
@@ -46,10 +69,12 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.getDetail.next(id);
     });
   }
+
   handleRefresh() {
     const id = this.route.snapshot.paramMap.get('id');
     this.getDetail.next(id);
   }
+
   playWithIndex(index: number) {
     if (this.videoIndex === index) {
       return;
@@ -60,7 +85,10 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.createPlayer();
     }, 0);
   }
+
   createPlayer() {
+    this.circleBtn.doReset();
+    this.showNextMask = false;
     const url = this.item.remote_url[this.videoIndex].url;
     const videoElement = this.videoElement.nativeElement;
     // @ts-ignore
@@ -86,6 +114,12 @@ export class VideoComponent implements OnInit, OnDestroy {
           'fullscreen', // Toggle fullscreen
         ],
       });
+      this.player.on('ended', () => {
+        if (this.videoIndex < this.item.remote_url.length - 1) {
+          this.showNextMask = true;
+          this.circleBtn.doStart();
+        }
+      });
       // @ts-ignore
       this.hls = new Hls();
       this.hls.loadSource(url);
@@ -98,6 +132,7 @@ export class VideoComponent implements OnInit, OnDestroy {
       videoElement.src = url;
     }
   }
+
   destroyPlayer() {
     // if (this.player) {
     //   this.player.destroy();
@@ -112,6 +147,11 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.videoElement.nativeElement.pause();
     this.videoElement.nativeElement.src = '';
   }
+
+  handleConfirmNext() {
+    this.playWithIndex(this.videoIndex + 1);
+  }
+
   ngOnDestroy(): void {
     this.destroyPlayer();
   }

@@ -16,7 +16,6 @@ import {FormsModule} from '@angular/forms';
 import {SnotifyModule, SnotifyService, ToastDefaults} from 'ng-snotify';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-// import { VideoFilterComponent } from './shared/video-filter/video-filter.component';
 
 @NgModule({
   declarations: [

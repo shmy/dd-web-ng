@@ -6,6 +6,8 @@ import { AfterViewInit, Directive, ElementRef, HostBinding, Input } from '@angul
 export class ImageLazyLoadDirective implements AfterViewInit {
   @HostBinding('attr.src') srcAttr = null;
   @Input() src: string;
+  @Input() loadingPlaceholder = 'assets/images/loading.png';
+  @Input() loaderrPlaceholder = 'assets/images/loaderr.png';
 
   constructor(private el: ElementRef) {}
 
@@ -30,7 +32,13 @@ export class ImageLazyLoadDirective implements AfterViewInit {
   }
 
   private loadImage() {
-    this.srcAttr = this.src;
+    const img = new Image();
+    // @ts-ignore
+    img.onload = img.onerror = ({ type }) => {
+        this.srcAttr = type === 'load' ? this.src : this.loaderrPlaceholder;
+    };
+    img.src = this.src;
+    this.srcAttr = this.loadingPlaceholder;
   }
 
 }
