@@ -5,6 +5,8 @@ import {of, Subject} from 'rxjs';
 import {catchError, switchMap, tap} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {CircleBtnComponent} from '../../shared/circle-btn/circle-btn.component';
+import Gitalk from 'gitalk';
+import {SeoService} from '../../service/seo.service';
 
 @Component({
   selector: 'app-video',
@@ -22,17 +24,21 @@ export class VideoComponent implements OnInit, OnDestroy {
   getDetail = new Subject<string>();
   isElectron = environment.isElectron;
   showNextMask = false;
+
   get nextTipText() {
     if (this.item.remote_url && this.item.remote_url[this.videoIndex + 1]) {
       return this.item.remote_url[this.videoIndex + 1].tag;
     }
     return '';
   }
+
   constructor(
     private route: ActivatedRoute,
+    private seoService: SeoService,
     private videoService: VideoService,
   ) {
   }
+
   ngOnInit() {
     this.getDetail.pipe(
       tap(_ => this.loadErr = false),
@@ -49,6 +55,17 @@ export class VideoComponent implements OnInit, OnDestroy {
         this.item = payload;
         this.playWithIndex(0);
         if (!this.isElectron) {
+          // 设置SEO
+          this.seoService.setTitle(this.item.name + '[黑人视频全网免费视频在线观看]');
+          this.seoService.setDescription(this.item.introduce);
+          this.seoService.setKeywords([
+            this.item.name,
+            this.item.latest,
+            ...this.item.alias,
+            ...this.item.director,
+            ...this.item.starring,
+          ].join(','));
+          // 分享功能
           // @ts-ignore
           socialShare('#share', {
             sites: ['wechat', 'qzone', 'qq', 'weibo'],
@@ -60,6 +77,26 @@ export class VideoComponent implements OnInit, OnDestroy {
             wechatQrcodeTitle: '微信扫一扫：分享给朋友',
             wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本页面分享至朋友圈。</p>',
           });
+          // 评论功能
+          const gitalk = new Gitalk({
+            clientID: 'a5911b5079acafacd845',
+            clientSecret: 'fec6ba6c2177893b985a5de7c84787a0b3cd1e4f',
+            repo: 'dd-web-comments',
+            owner: 'shmy',
+            admin: ['shmy'],
+            title: this.item.name,
+            id: this.route.snapshot.paramMap.get('id'),
+            body: `### ${this.item.name}
+
+![${this.item.name}](${this.item.thumbnail})
+
+>${this.item.introduce}
+
+[>>点击进入在线观看](${window.location.href})`,
+            distractionFreeMode: false  // Facebook-like distraction free mode
+          });
+
+          gitalk.render('gitalk-container');
         }
       }
     });

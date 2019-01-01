@@ -18,12 +18,18 @@ import {VideoPlaylistComponent} from './shared/video-playlist/video-playlist.com
 import {VideoFilterComponent} from './shared/video-filter/video-filter.component';
 import {CircleBtnComponent} from './shared/circle-btn/circle-btn.component';
 
+const title = '黑人视频全网免费视频在线观看';
+const keywords = '黑人视频,免费视频,免费电影,免费电视剧,免费综艺,免费动漫';
+const description = '黑人视频是一款免费播放全网电影电视剧综艺和动漫的应用，跨平台，多体验！';
 const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
     data: {
       keep: true,
+      title,
+      description,
+      keywords,
     }
   },
   {
@@ -31,6 +37,9 @@ const routes: Routes = [
     component: TypeComponent,
     data: {
       keep: true,
+      title,
+      description,
+      keywords,
     }
   },
   {
@@ -43,17 +52,28 @@ const routes: Routes = [
     component: SearchComponent,
     data: {
       keep: true,
+      title,
+      description,
+      keywords,
     }
   },
   {
     path: 'client',
     component: ClientComponent,
+    data: {
+      title,
+      description,
+      keywords,
+    }
   },
   {
     path: 'download',
     component: DownloadComponent,
     data: {
       keep: true,
+      title,
+      description,
+      keywords,
     }
   }
 ];

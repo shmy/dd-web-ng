@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {filter, map, mergeMap, tap} from 'rxjs/operators';
 import {environment} from '../environments/environment';
 import {FfmpegService} from './service/ffmpeg.service';
+import {SeoService} from './service/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -13,19 +14,40 @@ export class AppComponent implements OnInit {
   isSupportTouch = ('ontouchend' in document);
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
+    private seoService: SeoService,
     private ffmpegService: FfmpegService,
   ) {
   }
 
   ngOnInit(): void {
-    this.router.events.pipe(
-      filter(event => {
-        return event instanceof NavigationEnd && !environment.isElectron && environment.production;
-      })
-    ).subscribe((event: NavigationEnd) => {
-      // @ts-ignore
-      _hmt.push(['_trackPageview', event.urlAfterRedirects]);
-    });
+    if (!environment.isElectron && environment.production) {
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd),
+        tap(event => {
+          // @ts-ignore
+          _hmt.push(['_trackPageview', event.urlAfterRedirects]);
+        }),
+        map(() => this.route),
+        map(route => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        mergeMap(route => route.data),
+      ).subscribe(data => {
+        if (data.title) {
+          this.seoService.setTitle(data.title);
+        }
+        if (data.description) {
+          this.seoService.setDescription(data.description);
+        }
+        if (data.keywords) {
+          this.seoService.setKeywords(data.keywords);
+        }
+      });
+    }
     if (environment.isElectron) {
       this.ffmpegService.initList();
     }
