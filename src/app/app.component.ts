@@ -29,11 +29,11 @@ export class AppComponent implements OnInit {
     if (environment.isElectron) {
       this.ffmpegService.initList();
     }
-    if (this.isSupportTouch) {
-      document.body.addEventListener('touchstart', this.listenTouch.bind(this));
-    } else {
-      document.body.addEventListener('click', this.listenClick.bind(this));
-    }
+    // if (this.isSupportTouch) {
+    //   document.addEventListener('touchstart', this.listenTouch.bind(this), false);
+    // } else {
+    document.documentElement.addEventListener('click', this.listenClick.bind(this), true);
+    // }
   }
   private listenClick(e: MouseEvent) {
     this.builtFlowers(e.clientX, e.clientY);

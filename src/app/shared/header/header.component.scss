@@ -44,6 +44,7 @@
       box-sizing: border-box;
       padding-right: 10px;
       >input {
+        user-select: auto;
         display: block;
         height: 35px;
         width: 100%;
