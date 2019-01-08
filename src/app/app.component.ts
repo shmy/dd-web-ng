@@ -4,6 +4,7 @@ import {filter, map, mergeMap, tap} from 'rxjs/operators';
 import {environment} from '../environments/environment';
 import {FfmpegService} from './service/ffmpeg.service';
 import {SeoService} from './service/seo.service';
+import {LowdbService} from './service/lowdb/lowdb.service';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,12 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private seoService: SeoService,
     private ffmpegService: FfmpegService,
+    private lowdbService: LowdbService,
   ) {
   }
 
   ngOnInit(): void {
+    this.lowdbService.initializeInstance();
     if (!environment.isElectron && environment.production) {
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),

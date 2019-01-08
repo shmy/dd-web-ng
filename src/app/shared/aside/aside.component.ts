@@ -36,6 +36,11 @@ export class AsideComponent implements OnInit {
       path: '/type/5b1fdbee30025ae5371ac363',
       icon: 'icon-dongman',
     },
+    {
+      name: '历史记录',
+      path: '/history',
+      icon: 'icon-dongman',
+    },
   ];
   auxiliaryItems: AsideItem[] = [
     {

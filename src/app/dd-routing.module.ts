@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {IndexComponent} from './routes/index/index.component';
 import {TypeComponent} from './routes/type/type.component';
 import {VideoComponent} from './routes/video/video.component';
@@ -17,6 +17,7 @@ import {DownloadComponent} from './routes/download/download.component';
 import {VideoPlaylistComponent} from './shared/video-playlist/video-playlist.component';
 import {VideoFilterComponent} from './shared/video-filter/video-filter.component';
 import {CircleBtnComponent} from './shared/circle-btn/circle-btn.component';
+import {HistoryComponent} from './routes/history/history.component';
 
 const title = '黑人视频全网免费视频在线观看';
 const keywords = '黑人视频,免费视频,免费电影,免费电视剧,免费综艺,免费动漫';
@@ -37,7 +38,7 @@ const routes: Routes = [
     component: TypeComponent,
     data: {
       keep: true,
-      title,
+      title: '视频分类',
       description,
       keywords,
     }
@@ -58,10 +59,20 @@ const routes: Routes = [
     }
   },
   {
+    path: 'history',
+    component: HistoryComponent,
+    data: {
+      keep: true,
+      title: '历史记录',
+      description,
+      keywords,
+    }
+  },
+  {
     path: 'client',
     component: ClientComponent,
     data: {
-      title,
+      title: '客户端下载',
       description,
       keywords,
     }
@@ -77,6 +88,7 @@ const routes: Routes = [
     }
   }
 ];
+
 @NgModule({
   declarations: [
     IndexComponent,
@@ -85,6 +97,7 @@ const routes: Routes = [
     SearchComponent,
     ClientComponent,
     DownloadComponent,
+    HistoryComponent,
     IndexSectionComponent,
     VideoItemComponent,
     VideoPlaylistComponent,
@@ -103,4 +116,5 @@ const routes: Routes = [
     // DestroyPlayer,
   ],
 })
-export class DdRoutingModule { }
+export class DdRoutingModule {
+}

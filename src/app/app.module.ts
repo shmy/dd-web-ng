@@ -23,7 +23,6 @@ import { environment } from '../environments/environment';
     HeaderComponent,
     AsideComponent,
     NotFoundComponent,
-    // VideoFilterComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 import {CircleBtnComponent} from '../../shared/circle-btn/circle-btn.component';
 import Gitalk from 'gitalk';
 import {SeoService} from '../../service/seo.service';
+import {LowdbService} from '../../service/lowdb/lowdb.service';
 
 @Component({
   selector: 'app-video',
@@ -36,6 +37,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private seoService: SeoService,
     private videoService: VideoService,
+    private lowdbService: LowdbService,
   ) {
   }
 
@@ -156,6 +158,24 @@ export class VideoComponent implements OnInit, OnDestroy {
           this.showNextMask = true;
           this.circleBtn.doStart();
         }
+      });
+      this.player.on('timeupdate', ({ detail }) => {
+        if (detail.plyr.playing) {
+          this.lowdbService.upsertLooekById(this.item._id, detail.plyr.currentTime, detail.plyr.duration);
+        }
+      });
+      this.player.on('loadedmetadata', ({ detail }) => {
+        const record = {
+          _id: this.item._id,
+          name: this.item.name,
+          thumbnail: this.item.thumbnail,
+          looek: detail.plyr.currentTime,
+          total: detail.plyr.duration,
+          tag: this.item.remote_url[this.videoIndex].tag,
+          created_at: new Date().getTime(),
+          updated_at: new Date().getTime(),
+        };
+        this.lowdbService.upsertRecord(record);
       });
       // @ts-ignore
       this.hls = new Hls();
