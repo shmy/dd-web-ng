@@ -11,7 +11,8 @@
         </div>
       </div>
       <app-video-playlist [isSide]="true" (OnChange)="playWithIndex($event)"
-                          [name]="item.name" [thumbnail]="item.pic"
+                          [name]="item.name"
+                          [thumbnail]="item.pic"
                           [current]="current"
                           [items]="resources"></app-video-playlist>
 
@@ -20,17 +21,19 @@
       <button class="load-err-btn" (click)="handleRefresh()">加载失败，点击重试！</button>
     </div>
 
-    <app-video-playlist (OnChange)="playWithIndex($event)" [name]="item.name"
+    <app-video-playlist (OnChange)="playWithIndex($event)"
+                        [name]="item.name"
                         [current]="current"
-                        [thumbnail]="item.pic" [items]="item.resources"></app-video-playlist>
+                        [thumbnail]="item.pic"
+                        [items]="resources"></app-video-playlist>
     <div class="main-title">《{{ item.name }}》介绍</div>
     <div class="detail-introduction">
-
       <p class="video-sub-introduce">导演：{{ item.director }}</p>
       <p class="video-sub-introduce">演员：{{ item.actor }}</p>
+      <p class="video-sub-introduce">年代：{{ item.year }}</p>
       <p class="video-sub-introduce">
         <span>分类：</span>
-        <span class="video-classify-name">{{ item.classify?.name }}</span>
+        <a [routerLink]="'/type/'+item.label?.id" class="video-classify-name">{{ item.label?.name }}</a>
         &nbsp;&nbsp;&nbsp;
         <span>累计</span>&nbsp;
         <span class="video-number">{{ item.views }}</span>&nbsp;

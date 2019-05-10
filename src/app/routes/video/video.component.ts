@@ -8,6 +8,7 @@ import {CircleBtnComponent} from '../../shared/circle-btn/circle-btn.component';
 import Gitalk from 'gitalk';
 import {SeoService} from '../../service/seo.service';
 import {LowdbService} from '../../service/lowdb/lowdb.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-video',
@@ -45,6 +46,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     private seoService: SeoService,
     private videoService: VideoService,
     private lowdbService: LowdbService,
+    private location: Location,
   ) {
   }
 
@@ -144,6 +146,8 @@ export class VideoComponent implements OnInit, OnDestroy {
   createPlayer() {
     this.circleBtn.doReset();
     this.showNextMask = false;
+    const path = this.route.snapshot.url.map(segments => segments.path).join('/');
+    this.location.replaceState('/' + path + '#' + this.current.join(','), '', null)
     const url = this.currentVideo.url;
     const videoElement = this.videoElement.nativeElement;
     // @ts-ignore
@@ -178,17 +182,17 @@ export class VideoComponent implements OnInit, OnDestroy {
       });
       this.player.on('timeupdate', ({ detail }) => {
         if (detail.plyr.playing) {
-          this.lowdbService.upsertLooekById(this.item.id, detail.plyr.currentTime, detail.plyr.duration);
+          this.lowdbService.upsertLooekById(this.item.id, detail.plyr.currentTime, detail.plyr.duration, this.current);
         }
       });
       this.player.on('loadedmetadata', ({ detail }) => {
         const record = {
-          _id: this.item._id,
+          id: this.item.id,
           name: this.item.name,
-          thumbnail: this.item.thumbnail,
+          thumbnail: this.item.pic,
           looek: detail.plyr.currentTime,
           total: detail.plyr.duration,
-          tag: this.currentVideo.tag,
+          current: this.current,
           created_at: new Date().getTime(),
           updated_at: new Date().getTime(),
         };

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {AsideService} from '../../service/aside/aside.service';
 import {Observable, Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap, throttleTime} from 'rxjs/operators';
 import {VideoService} from '../../service/video.service';
 import {ActivationStart, Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
@@ -50,12 +50,12 @@ export class HeaderComponent implements OnInit {
       this.keyword = e.snapshot.queryParamMap.get('keyword');
     });
     this.searchResult$ = this.searchTerms.pipe(
-      debounceTime(300),
+      throttleTime(100),
       distinctUntilChanged(),
       switchMap((keyword: string) => this.videoService.getVideoSearchResult(keyword)),
-      map(item => {
-        return item.result;
-      }),
+      // map(item => {
+      //   return item.result;
+      // }),
       tap(ret => {
         this.shouldBeShow = ret.length !== 0;
         setTimeout(() => {

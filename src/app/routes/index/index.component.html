@@ -3,7 +3,7 @@
     <div [hidden]="!loadErr" class="load-err-wrap">
       <button class="load-err-btn" (click)="handleFetch()">加载失败，点击重试！</button>
     </div>
-    <app-index-section [item]="item" *ngFor="let item of items"></app-index-section>
+    <app-index-section [items]="item" [index]="index" *ngFor="let item of items; let index = index;"></app-index-section>
 
   </div>
 </div>

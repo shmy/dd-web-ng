@@ -23,7 +23,7 @@ export class IndexComponent implements OnInit {
       tap(_ => this.loading = false)
     )
       .subscribe((payload) => {
-        this.items = payload.latest;
+        this.items = payload;
       }, _ => {
         this.loadErr = true;
       });

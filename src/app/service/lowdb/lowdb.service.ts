@@ -31,24 +31,24 @@ export class LowdbService {
       .value();
   }
   upsertRecord(record: Record) {
-    const row = this.db.get('records').find({ _id: record._id }).value();
+    const row = this.db.get('records').find({ id: record.id }).value();
     if (!row) {
       this.db.get('records').push(record).write();
     } else {
-      this.upsertLooekById(record._id, record.looek, record.total);
+      this.upsertLooekById(record.id, record.looek, record.total, record.current);
     }
   }
-  upsertLooekById(_id: string, looek: number, total: number) {
+  upsertLooekById(id: string, looek: number, total: number, current: number[]) {
     this.db.get('records')
-      .find({ _id })
-      .assign({ looek, total, updated_at: new Date().getTime(), })
+      .find({ id })
+      .assign({ looek, total, current, updated_at: new Date().getTime(), })
       .write();
   }
 }
 export interface Record {
-  _id: string;
+  id: string;
   name: string;
-  tag: string;
+  current: number[];
   thumbnail: string;
   looek: number;
   total: number;
