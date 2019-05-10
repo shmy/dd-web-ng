@@ -10,31 +10,33 @@
           <div class="next-tip">接下来播放 {{ nextTipText }}</div>
         </div>
       </div>
-      <app-video-playlist [isSide]="true" (OnIndexChange)="playWithIndex($event)" [videoIndex]="videoIndex"
-                          [name]="item.name" [thumbnail]="item.thumbnail"
-                          [items]="item.remote_url"></app-video-playlist>
+      <app-video-playlist [isSide]="true" (OnChange)="playWithIndex($event)"
+                          [name]="item.name" [thumbnail]="item.pic"
+                          [current]="current"
+                          [items]="resources"></app-video-playlist>
 
     </div>
     <div [hidden]="!loadErr" class="load-err-wrap">
       <button class="load-err-btn" (click)="handleRefresh()">加载失败，点击重试！</button>
     </div>
 
-    <app-video-playlist (OnIndexChange)="playWithIndex($event)" [videoIndex]="videoIndex" [name]="item.name"
-                        [thumbnail]="item.thumbnail" [items]="item.remote_url"></app-video-playlist>
+    <app-video-playlist (OnChange)="playWithIndex($event)" [name]="item.name"
+                        [current]="current"
+                        [thumbnail]="item.pic" [items]="item.resources"></app-video-playlist>
     <div class="main-title">《{{ item.name }}》介绍</div>
     <div class="detail-introduction">
 
       <p class="video-sub-introduce">导演：{{ item.director }}</p>
-      <p class="video-sub-introduce">演员：{{ item.starring }}</p>
+      <p class="video-sub-introduce">演员：{{ item.actor }}</p>
       <p class="video-sub-introduce">
         <span>分类：</span>
         <span class="video-classify-name">{{ item.classify?.name }}</span>
         &nbsp;&nbsp;&nbsp;
         <span>累计</span>&nbsp;
-        <span class="video-number">{{ item.number }}</span>&nbsp;
+        <span class="video-number">{{ item.views }}</span>&nbsp;
         <span>次浏览</span>
       </p>
-      <p class="video-sub-introduce">简介：{{ item.introduce }}</p>
+      <p class="video-sub-introduce">简介：{{ item.des }}</p>
     </div>
 
     <!--<div class="main-title">相关视频</div>-->

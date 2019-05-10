@@ -2,19 +2,28 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {FfmpegService} from '../../service/ffmpeg.service';
 
+
 @Component({
   selector: 'app-video-playlist',
   templateUrl: './video-playlist.component.html',
   styleUrls: ['./video-playlist.component.scss']
 })
+
 export class VideoPlaylistComponent implements OnInit {
   @Input('name') name: string;
   @Input('items') items: any[];
-  @Input('thumbnail') thumbnail: string;
-  @Input('videoIndex') videoIndex: number;
+  @Input('thumbnail') pic: string;
+  @Input('current') current: number[] = [0, 0];
   @Input('isSide') isSide = false;
-  @Output() OnIndexChange = new EventEmitter<number>();
+  @Output() OnChange = new EventEmitter<number[]>();
   isElectron = environment.isElectron;
+  sourceIndex = 0;
+  get resources() {
+    if (!this.items || this.items.length < 1) {
+      return [];
+    }
+    return this.items[this.sourceIndex].playlist;
+  }
   constructor(
     private ffmpegService: FfmpegService,
   ) { }
@@ -22,7 +31,7 @@ export class VideoPlaylistComponent implements OnInit {
   ngOnInit() {
   }
   playWithIndex(index: number) {
-    this.OnIndexChange.emit(index);
+    this.OnChange.emit([this.sourceIndex, index]);
   }
   handelDoDownload(event: MouseEvent, index: number) {
     event.stopPropagation();

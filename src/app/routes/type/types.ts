@@ -1,15 +1,9 @@
 export const classes = [
   {'title': '不限分类', 'key': 'pid', 'value': ''},
-  {'title': '电影', 'key': 'pid', 'value': '5b1362ab30763a214430d036'},
-  {'title': '连续剧', 'key': 'pid', 'value': '5b1fce6330025ae5371a6a8a'},
-  {'title': '综艺', 'key': 'pid', 'value': '5b1fd85730025ae5371abaed'},
-  {'title': '动漫', 'key': 'pid', 'value': '5b1fdbee30025ae5371ac363'},
-];
-
-export const sources = [
-  {'title': '不限来源', 'key': 'source', 'value': ''},
-  {'title': '最大资源网', 'key': 'source', 'value': 'zuidazy'},
-  {'title': '酷云资源网', 'key': 'source', 'value': 'kuyunzy'},
+  {'title': '电影', 'key': 'pid', 'value': '1'},
+  {'title': '连续剧', 'key': 'pid', 'value': '2'},
+  {'title': '综艺', 'key': 'pid', 'value': '3'},
+  {'title': '动漫', 'key': 'pid', 'value': '4'},
 ];
 
 export const querys = [
@@ -57,40 +51,47 @@ export const areas = [
 ];
 
 export const allClasses = {
-  '5b1362ab30763a214430d036': {
+  '1': {
     'name': '电影',
     'children': [
-      {'name': '全部电影', '_id': '5b1362ab30763a214430d036'},
-      {'name': '动作片', '_id': '5b0fd14e7cad175a34a2ea8a'},
-      {'name': '爱情片', '_id': '5b0fd14e7cad175a34a2ea8c'},
-      {'name': '科幻片', '_id': '5b0fd14e7cad175a34a2ea8d'},
-      {'name': '喜剧片', '_id': '5b0fd14e7cad175a34a2ea8b'},
-      {'name': '战争片', '_id': '5b0fd14e7cad175a34a2ea90'},
-      {'name': '恐怖片', '_id': '5b0fd14e7cad175a34a2ea8e'},
-      {'name': '剧情片', '_id': '5b0fd14e7cad175a34a2ea8f'},
-      {'name': '记录片', '_id': '5b6bd4eb50456c5fb99610f4'},
+      {'name': '全部电影', 'id': '1'},
+      {'name': '动作片', 'id': '5'},
+      {'name': '喜剧片', 'id': '6'},
+      {'name': '爱情片', 'id': '7'},
+      {'name': '科幻片', 'id': '8'},
+      {'name': '恐怖片', 'id': '9'},
+      {'name': '剧情片', 'id': '10'},
+      {'name': '战争片', 'id': '11'},
+      {'name': '纪录片', 'id': '12'},
+      {'name': '音乐片', 'id': '13'},
+      {'name': '微电影', 'id': '14'},
+      {'name': '伦理片', 'id': '15'},
+      {'name': '福利片', 'id': '16'},
     ]
   },
-  '5b1fce6330025ae5371a6a8a': {
+  '2': {
     'name': '连续剧',
     'children': [
-      {'name': '全部连续剧', '_id': '5b1fce6330025ae5371a6a8a'},
-      {'name': '国产剧', '_id': '5b1fcf0b30025ae5371a6ad8'},
-      {'name': '港台剧', '_id': '5b1fcf6330025ae5371a6b00'},
-      {'name': '日韩剧', '_id': '5b1fcfb230025ae5371a6b22'},
-      {'name': '欧美剧', '_id': '5b1fcffb30025ae5371a6b41'},
+      {'name': '全部连续剧', 'id': '2'},
+      {'name': '国产剧', 'id': '17'},
+      {'name': '香港剧', 'id': '18'},
+      {'name': '台湾剧', 'id': '19'},
+      {'name': '韩国剧', 'id': '20'},
+      {'name': '日本剧', 'id': '21'},
+      {'name': '欧美剧', 'id': '22'},
+      {'name': '海外剧', 'id': '23'},
     ]
   },
-  '5b1fd85730025ae5371abaed': {
+  '3': {
     'name': '综艺',
     'children': [
-      {'name': '全部综艺', '_id': '5b1fd85730025ae5371abaed'}
+      {'name': '全部综艺', 'id': '3'}
     ]
   },
-  '5b1fdbee30025ae5371ac363': {
+  '4': {
     'name': '动漫',
     'children': [
-      {'name': '全部动漫', '_id': '5b1fdbee30025ae5371ac363'}
+      {'name': '全部动漫', 'id': '4'}
     ]
   },
 };

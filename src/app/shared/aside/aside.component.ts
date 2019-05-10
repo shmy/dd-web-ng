@@ -18,22 +18,22 @@ export class AsideComponent implements OnInit {
     },
     {
       name: '电影',
-      path: '/type/5b1362ab30763a214430d036',
+      path: '/type/1',
       icon: 'icon-movie',
     },
     {
       name: '电视剧',
-      path: '/type/5b1fce6330025ae5371a6a8a',
+      path: '/type/2',
       icon: 'icon-tv',
     },
     {
       name: '综艺',
-      path: '/type/5b1fd85730025ae5371abaed',
+      path: '/type/3',
       icon: 'icon-KTV',
     },
     {
       name: '动漫',
-      path: '/type/5b1fdbee30025ae5371ac363',
+      path: '/type/4',
       icon: 'icon-dongman',
     },
     {

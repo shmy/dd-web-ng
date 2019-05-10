@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {classes, sources, sorts, years, areas, querys} from '../../routes/type/types';
+import {classes, sorts, years, areas, querys} from '../../routes/type/types';
 
 export interface FilterParams {
   pid: string;
@@ -22,7 +22,6 @@ export class VideoFilterComponent implements OnInit {
   @Input('filterParams') filterParams: FilterParams;
   @Output() filterParamsChange: EventEmitter<FilterParams> = new EventEmitter<FilterParams>();
   searchClasses = classes;
-  sources = sources;
   sorts = sorts;
   years = years;
   areas = areas;

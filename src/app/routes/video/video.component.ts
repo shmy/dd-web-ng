@@ -20,19 +20,26 @@ export class VideoComponent implements OnInit, OnDestroy {
   item: any = {};
   hls: any;
   player: any = null;
-  videoIndex = -1;
+  current: number[] = [0, 0];
   loadErr = false;
   getDetail = new Subject<string>();
   isElectron = environment.isElectron;
   showNextMask = false;
+  resources = [];
 
   get nextTipText() {
-    if (this.item.remote_url && this.item.remote_url[this.videoIndex + 1]) {
-      return this.item.remote_url[this.videoIndex + 1].tag;
-    }
+    // todo
+    // if (this.item.remote_url && this.item.remote_url[this.videoIndex + 1]) {
+    //   return this.item.remote_url[this.videoIndex + 1].tag;
+    // }
     return '';
   }
-
+  get currentVideo() {
+    if (this.resources.length < 1) {
+      return {};
+    }
+    return this.resources[this.current[0]].playlist[this.current[1]];
+  }
   constructor(
     private route: ActivatedRoute,
     private seoService: SeoService,
@@ -55,17 +62,26 @@ export class VideoComponent implements OnInit, OnDestroy {
     ).subscribe(payload => {
       if (payload) {
         this.item = payload;
-        this.playWithIndex(0);
+        this.resources = this.item.resources.map(item => ({
+          source: item.source,
+          playlist: item.links.split('#').map(curr => {
+            curr = curr.split('$');
+            return {
+              tag: curr[0],
+              url: curr[1],
+            };
+          })
+        }));
+        this.item.resources = '';
+        this.createPlayer();
         if (!this.isElectron) {
           // 设置SEO
           this.seoService.setTitle(this.item.name + '[黑人视频全网免费视频在线观看]');
-          this.seoService.setDescription(this.item.introduce);
+          this.seoService.setDescription(this.item.des);
           this.seoService.setKeywords([
             this.item.name,
-            this.item.latest,
-            ...this.item.alias,
             ...this.item.director,
-            ...this.item.starring,
+            ...this.item.actor,
           ].join(','));
           // 分享功能
           // @ts-ignore
@@ -74,7 +90,7 @@ export class VideoComponent implements OnInit, OnDestroy {
             url: window.location.href,
             source: 'https://v.shmy.tech',
             title: `《${this.item.name}》在线观看 - 黑人视频`,
-            description: this.item.introduce,
+            description: this.item.des,
             image: this.item.thumbnail,
             wechatQrcodeTitle: '微信扫一扫：分享给朋友',
             wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本页面分享至朋友圈。</p>',
@@ -90,9 +106,9 @@ export class VideoComponent implements OnInit, OnDestroy {
             id: this.route.snapshot.paramMap.get('id'),
             body: `### ${this.item.name}
 
-![${this.item.name}](${this.item.thumbnail})
+![${this.item.name}](${this.item.pic})
 
->${this.item.introduce}
+>${this.item.des}
 
 [>>点击进入在线观看](${window.location.href})`,
             distractionFreeMode: false  // Facebook-like distraction free mode
@@ -114,13 +130,13 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.getDetail.next(id);
   }
 
-  playWithIndex(index: number) {
-    if (this.videoIndex === index) {
+  playWithIndex(event: number[]) {
+    if (this.current[0] === event[0] && this.current[1] === event[1]) {
       return;
     }
+    this.current = event;
     this.destroyPlayer();
     setTimeout(() => {
-      this.videoIndex = index;
       this.createPlayer();
     }, 0);
   }
@@ -128,7 +144,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   createPlayer() {
     this.circleBtn.doReset();
     this.showNextMask = false;
-    const url = this.item.remote_url[this.videoIndex].url;
+    const url = this.currentVideo.url;
     const videoElement = this.videoElement.nativeElement;
     // @ts-ignore
     if (Hls.isSupported()) {
@@ -154,14 +170,15 @@ export class VideoComponent implements OnInit, OnDestroy {
         ],
       });
       this.player.on('ended', () => {
-        if (this.videoIndex < this.item.remote_url.length - 1) {
-          this.showNextMask = true;
-          this.circleBtn.doStart();
-        }
+        // todo
+        // if (this.videoIndex < this.item.remote_url.length - 1) {
+        //   this.showNextMask = true;
+        //   this.circleBtn.doStart();
+        // }
       });
       this.player.on('timeupdate', ({ detail }) => {
         if (detail.plyr.playing) {
-          this.lowdbService.upsertLooekById(this.item._id, detail.plyr.currentTime, detail.plyr.duration);
+          this.lowdbService.upsertLooekById(this.item.id, detail.plyr.currentTime, detail.plyr.duration);
         }
       });
       this.player.on('loadedmetadata', ({ detail }) => {
@@ -171,7 +188,7 @@ export class VideoComponent implements OnInit, OnDestroy {
           thumbnail: this.item.thumbnail,
           looek: detail.plyr.currentTime,
           total: detail.plyr.duration,
-          tag: this.item.remote_url[this.videoIndex].tag,
+          tag: this.currentVideo.tag,
           created_at: new Date().getTime(),
           updated_at: new Date().getTime(),
         };
@@ -191,14 +208,9 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   destroyPlayer() {
-    // if (this.player) {
-    //   this.player.destroy();
-    // }
     if (this.hls) {
       this.hls.destroy();
     }
-    this.videoIndex = -1;
-    // this.player = null;
     this.hls = null;
     // native
     this.videoElement.nativeElement.pause();
@@ -206,7 +218,8 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   handleConfirmNext() {
-    this.playWithIndex(this.videoIndex + 1);
+    // todo
+    // this.playWithIndex(this.videoIndex + 1);
   }
 
   ngOnDestroy(): void {

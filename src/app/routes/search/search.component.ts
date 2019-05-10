@@ -23,13 +23,13 @@ export class SearchComponent implements OnInit {
   keyword = '';
   page = 1;
   per_page = 20;
-  last_page = 2;
+  // last_page = 2;
   loadErr = false;
   loading = false;
   filter = getDefaultParams();
   classes = [];
   get noMore()  {
-    return this.page >= this.last_page;
+    return false;
   }
   constructor(
     private videoService: VideoService,
@@ -47,14 +47,12 @@ export class SearchComponent implements OnInit {
   }
   initialize() {
     this.items = [];
-    this.last_page = 2;
     this.page = 1;
     this.handleFetch();
   }
   handleFetch() {
     this.getHttpStream().subscribe(payload => {
-      this.last_page = payload.last_page;
-      this.items.push.apply(this.items, payload.result);
+      this.items.push.apply(this.items, payload);
     }, _ => this.loadErr = true);
   }
   getHttpStream() {
@@ -93,8 +91,7 @@ export class SearchComponent implements OnInit {
         // debounceTime(500),
       )
       .subscribe(payload => {
-        this.last_page = payload.last_page;
-        this.items.push.apply(this.items, payload.result);
+        this.items.push.apply(this.items, payload);
         this.loading = false;
       }, _ => this.loadErr = true);
   }

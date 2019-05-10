@@ -18,11 +18,11 @@ export class NoopInterceptor implements HttpInterceptor {
       }),
       map((event: HttpResponse<any>) => {
         const body = event.body;
-        if (body['success'] === false) {
-           throw new Error(body['message']);
+        if (body['code'] !== 0) {
+           throw new Error(body['info']);
         }
         return event.clone({
-          body: event.body['payload']
+          body: event.body['data']
         });
       }),
       retry(2),

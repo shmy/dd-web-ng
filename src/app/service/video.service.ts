@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
 
-const baseUrl = 'https://dd.shmy.tech/api/client';
+const baseUrl = 'http://139.180.208.30/api/v1';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,10 +12,10 @@ export class VideoService {
     return this.http.get<any>(baseUrl + '/recommended');
   }
   getVideoInfo(id: string) {
-    return this.http.get<any>(baseUrl + '/video/' + id);
+    return this.http.get<any>(baseUrl + '/video/detail/' + id);
   }
   getVideoListByPage(pid, sort, area, year, source: string, page: number = 1, per_page: number = 20) {
-    return this.http.get<any>(baseUrl + '/classification/' + pid, {
+    return this.http.get<any>(baseUrl + '/video/' + pid, {
       params: {
         sort,
         area,

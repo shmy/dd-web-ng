@@ -28,12 +28,16 @@
   font-size: 16px;
   font-weight: 500;
 }
-.video-latest,
+.video-actor,
 .video-generated_at {
   font-size: 13px;
   color: #6E6E6E;
 }
-
+.video-actor {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 @media screen and (max-width: 1200px)  {
     .video-list-item-wrap {
       width: 25%;

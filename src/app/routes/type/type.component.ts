@@ -25,14 +25,14 @@ export class TypeComponent implements OnInit {
   id = '';
   page = 1;
   per_page = 20;
-  last_page = 2;
+  // last_page = 2;
   loadErr = false;
   loading = false;
   classes = [];
   filter: FilterParams = getDefaultParams();
 
   get noMore() {
-    return this.page >= this.last_page;
+    return false;
   }
 
   constructor(
@@ -45,7 +45,7 @@ export class TypeComponent implements OnInit {
       // this.child.nativeElement.scrollTop = 0;
       this.id = e.get('id');
       this.classes = allClasses[this.id].children;
-      this.filter = getDefaultParams(this.classes[0]._id);
+      this.filter = getDefaultParams(this.classes[0].id);
       // console.log(this.types);
       // setTimeout(() => {
       this.initialize();
@@ -56,15 +56,16 @@ export class TypeComponent implements OnInit {
 
   initialize() {
     this.items = [];
-    this.last_page = 2;
+    // this.last_page = 2;
     this.page = 1;
     this.handleFetch();
   }
 
   handleFetch() {
     this.getHttpStream().subscribe(payload => {
-      this.last_page = payload.last_page;
-      this.items.push.apply(this.items, payload.result);
+      // console.log(payload)
+      // this.last_page = payload.last_page;
+      this.items.push.apply(this.items, payload);
     }, _ => this.loadErr = true);
   }
 
@@ -103,8 +104,8 @@ export class TypeComponent implements OnInit {
         // debounceTime(500),
       )
       .subscribe(payload => {
-        this.last_page = payload.last_page;
-        this.items.push.apply(this.items, payload.result);
+        // this.last_page = payload.last_page;
+        this.items.push.apply(this.items, payload);
         this.loading = false;
       }, _ => this.loadErr = true);
   }

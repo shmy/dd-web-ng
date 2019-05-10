@@ -1,10 +1,10 @@
 <div class="video-playlist scroll" [class.is-side]="isSide">
-  <div class="video-title">
-    <span>播放列表</span>
-  </div>
+  <ul class="video-sources">
+    <li (click)="sourceIndex = index" *ngFor="let item of items; let index = index" [class.active]="index === sourceIndex">{{ item.source }}</li>
+  </ul>
   <ul flex="dir:left" class="video-playlist-wrap">
-    <li flex="dir:left" (click)="playWithIndex(i)" [class.active]="videoIndex === i" class="video-playlist-item" *ngFor="let curr of items; let i = index;">
-      <img class="video-thumbnail" [src]="thumbnail" alt="">
+    <li flex="dir:left" (click)="playWithIndex(i)" [class.active]="sourceIndex === current[0] && i === current[1]" class="video-playlist-item" *ngFor="let curr of resources; let i = index;">
+      <img class="video-thumbnail" [src]="pic" alt="">
       <div flex-box="1" flex="dir:top main:justify">
         <div class="video-playlist-name">{{ name }}</div>
         <div flex="dir:left main:justify">
