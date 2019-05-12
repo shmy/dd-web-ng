@@ -1,10 +1,14 @@
-<ul class="responsive history-warp">
-  <li [routerLink]="'/video/' + item.id"
-      [queryParams]="{'_': item.current.join('.')}" class="history-item" flex="dir:left" *ngFor="let item of result$ | async">
-    <img class="history-item-pic"  [src]="item.thumbnail" alt="">
-    <div style="margin-left: 10px; ;" flex-box="1" flex="dir:top main:justify">
-      <div>{{ item.name }}</div>
-      <div class="history-item-desc">{{ item.updated_at | timeAgo }} {{ (item.looek / item.total * 100).toFixed(2) }}%</div>
-    </div>
-  </li>
-</ul>
+<div class="full scroll">
+  <div class="responsive">
+  <ul class="history-warp">
+    <li [routerLink]="'/video/' + item.id"
+        [queryParams]="{'_': item.current.join('.')}" class="history-item" flex="dir:left" *ngFor="let item of result$ | async">
+      <img class="history-item-pic"  [src]="item.thumbnail" alt="">
+      <div style="margin-left: 10px; ;" flex-box="1" flex="dir:top main:justify">
+        <div>{{ item.name }}</div>
+        <div class="history-item-desc">{{ item.updated_at | timeAgo }} {{ (item.looek / item.total * 100).toFixed(2) }}%</div>
+      </div>
+    </li>
+  </ul>
+  </div>
+</div>
