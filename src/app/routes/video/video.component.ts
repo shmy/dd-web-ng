@@ -54,7 +54,8 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // 获取初始化播放位置
-    const cu: string[] = window.location.hash.match(/^#(\d+)\.(\d+)/);
+    const _ = this.route.snapshot.queryParamMap.get('_') || '';
+    const cu: string[] = _.match(/^(\d+)\.(\d+)/);
     if (cu !== null) {
       this.current = [+cu[1], +cu[2]];
     }
@@ -156,7 +157,8 @@ export class VideoComponent implements OnInit, OnDestroy {
   createPlayer() {
     this.circleBtn.doReset();
     this.showNextMask = false;
-    this.location.replaceState(this.location.path() + '#' + this.current.join('.'), '', null);
+    const id = this.route.snapshot.paramMap.get('id');
+    this.location.replaceState('/video/' + id, '_=' + this.current.join('.'), null);
     const url = this.currentVideo.url;
     const videoElement = this.videoElement.nativeElement;
     // @ts-ignore

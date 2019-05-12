@@ -17,7 +17,6 @@ export class LowdbService {
   }
 
   static initializeInstance() {
-    console.log(123)
     return new Promise((resolve, reject) => {
       if (!LowdbService._db) {
         Lowdb(adapter).then(instance => {

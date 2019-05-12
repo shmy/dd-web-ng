@@ -1,9 +1,10 @@
 <ul class="responsive history-warp">
-  <li class="history-item" *ngFor="let item of result$ | async">
-    <img class="history-item-pic" [src]="item.thumbnail" alt="">
-    <span>{{ item.name }}</span>
-    <span>{{ item.updated_at | timeAgo }}</span>
-    <span>{{ item.updated_at | timeAgo }}</span>
-<!--    {{ item.name }} | {{ item.looek }} | {{ item.total }}-->
+  <li [routerLink]="'/video/' + item.id"
+      [queryParams]="{'_': item.current.join('.')}" class="history-item" flex="dir:left" *ngFor="let item of result$ | async">
+    <img class="history-item-pic"  [src]="item.thumbnail" alt="">
+    <div style="margin-left: 10px; ;" flex-box="1" flex="dir:top main:justify">
+      <div>{{ item.name }}</div>
+      <div class="history-item-desc">{{ item.updated_at | timeAgo }} {{ (item.looek / item.total * 100).toFixed(2) }}%</div>
+    </div>
   </li>
 </ul>
