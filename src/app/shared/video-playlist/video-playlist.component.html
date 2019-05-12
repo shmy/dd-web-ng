@@ -1,6 +1,7 @@
 <div class="video-playlist scroll" [class.is-side]="isSide">
   <ul class="video-sources">
-    <li (click)="sourceIndex = index" *ngFor="let item of items; let index = index" [class.active]="index === sourceIndex">{{ item.source }}</li>
+    <li (click)="sourceIndex = index" *ngFor="let item of items; let index = index" [class.active]="index === sourceIndex">播放来源 {{ index + 1 }}</li>
+<!--    <li (click)="sourceIndex = index" *ngFor="let item of items; let index = index" [class.active]="index === sourceIndex">{{ item.source }}</li>-->
   </ul>
   <ul flex="dir:left" class="video-playlist-wrap">
     <li flex="dir:left" (click)="playWithIndex(i)" [class.active]="sourceIndex === current[0] && i === current[1]" class="video-playlist-item" *ngFor="let curr of resources; let i = index;">

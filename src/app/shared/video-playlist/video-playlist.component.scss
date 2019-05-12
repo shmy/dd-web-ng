@@ -6,16 +6,23 @@
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
-  height: 40px;
-  line-height: 40px;
+
   font-size: 0;
   > li {
+    height: 40px;
+    line-height: 40px;
     font-size: 16px;
     display: inline-block;
     padding: 0 10px;
     cursor: pointer;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    box-sizing: border-box;
     &.active {
-      color: red;
+      color: #0A0A0A;
+      border-bottom-color: #0A0A0A;
+      background-color: #E1E1E1;
     }
   }
 }

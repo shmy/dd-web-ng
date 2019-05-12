@@ -10,7 +10,7 @@
           <div class="next-tip">接下来播放 {{ nextTipText }}</div>
         </div>
       </div>
-      <app-video-playlist [isSide]="true" (OnChange)="playWithIndex($event)"
+      <app-video-playlist #playListSide [isSide]="true" (OnChange)="playWithIndex($event)"
                           [name]="item.name"
                           [thumbnail]="item.pic"
                           [current]="current"
@@ -21,7 +21,7 @@
       <button class="load-err-btn" (click)="handleRefresh()">加载失败，点击重试！</button>
     </div>
 
-    <app-video-playlist (OnChange)="playWithIndex($event)"
+    <app-video-playlist #playList (OnChange)="playWithIndex($event)"
                         [name]="item.name"
                         [current]="current"
                         [thumbnail]="item.pic"

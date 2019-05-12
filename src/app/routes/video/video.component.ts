@@ -9,6 +9,7 @@ import Gitalk from 'gitalk';
 import {SeoService} from '../../service/seo.service';
 import {LowdbService} from '../../service/lowdb/lowdb.service';
 import {Location} from '@angular/common';
+import {VideoPlaylistComponent} from '../../shared/video-playlist/video-playlist.component';
 
 @Component({
   selector: 'app-video',
@@ -27,7 +28,8 @@ export class VideoComponent implements OnInit, OnDestroy {
   isElectron = environment.isElectron;
   showNextMask = false;
   resources = [];
-
+  @ViewChild('playList') playList: VideoPlaylistComponent;
+  @ViewChild('playListSide') playListSide: VideoPlaylistComponent;
   get nextTipText() {
     // todo
     // if (this.item.remote_url && this.item.remote_url[this.videoIndex + 1]) {
@@ -51,6 +53,14 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // 获取初始化播放位置
+    const cu: string[] = window.location.hash.match(/^#(\d+)\.(\d+)/);
+    if (cu !== null) {
+      this.current = [+cu[1], +cu[2]];
+    }
+    // 设置tab索引
+    this.playList.sourceIndex = this.current[0];
+    this.playListSide.sourceIndex = this.current[0];
     this.getDetail.pipe(
       tap(_ => this.loadErr = false),
       switchMap((id: string) => {
@@ -146,8 +156,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   createPlayer() {
     this.circleBtn.doReset();
     this.showNextMask = false;
-    const path = this.route.snapshot.url.map(segments => segments.path).join('/');
-    this.location.replaceState('/' + path + '#' + this.current.join(','), '', null)
+    this.location.replaceState(this.location.path() + '#' + this.current.join('.'), '', null);
     const url = this.currentVideo.url;
     const videoElement = this.videoElement.nativeElement;
     // @ts-ignore
