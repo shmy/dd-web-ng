@@ -75,6 +75,7 @@ export class TypeComponent implements OnInit {
 
   getHttpStream() {
     this.loadErr = false;
+    this.noMore = false;
     this.loading = true;
     return this.videoService.getVideoListByPage(
       this.filter.pid,

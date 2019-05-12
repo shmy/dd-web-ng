@@ -62,6 +62,7 @@ export class SearchComponent implements OnInit {
   }
   getHttpStream() {
     this.loadErr = false;
+    this.noMore = false;
     this.loading = true;
     return this.videoService.getVideoSearchResultByPaging(
       this.keyword,
