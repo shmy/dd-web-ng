@@ -108,7 +108,10 @@ export class TypeComponent implements OnInit {
         // debounceTime(500),
       )
       .subscribe(payload => {
-        // this.last_page = payload.last_page;
+        if (payload.length === 0) {
+          this.noMore = true;
+          return;
+        }
         this.items.push.apply(this.items, payload);
         this.loading = false;
       }, _ => this.loadErr = true);

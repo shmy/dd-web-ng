@@ -53,6 +53,10 @@ export class SearchComponent implements OnInit {
   }
   handleFetch() {
     this.getHttpStream().subscribe(payload => {
+      if (payload.length === 0) {
+        this.noMore = true;
+        return;
+      }
       this.items.push.apply(this.items, payload);
     }, _ => this.loadErr = true);
   }
