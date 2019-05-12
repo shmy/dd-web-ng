@@ -68,7 +68,7 @@ export class VideoComponent implements OnInit, OnDestroy {
         return this.videoService.getVideoInfo(id).pipe(
           catchError(_ => {
             this.loadErr = true;
-            return of({});
+            return of(null);
           })
         );
       }),
