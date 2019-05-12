@@ -1,0 +1,52 @@
+.ad {
+  height: 220px;
+  width: 100%;
+  position: relative;
+  //background-position: center;
+  //background-size: cover;
+  //background-repeat: no-repeat;
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  //justify-content: center;
+  align-items: center;
+}
+.ad-logo {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+@media screen and (max-width: 800px)  {
+  .ad {
+    height: 200px;
+  }
+}
+@media screen and (max-width: 600px)  {
+  .ad {
+    height: 180px;
+  }
+}
+@media screen and (max-width: 400px)  {
+  .ad {
+    height: 160px;
+  }
+}
+.close {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  > i {
+    display: block;
+    color: #686868;
+  }
+}

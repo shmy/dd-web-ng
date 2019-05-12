@@ -1,0 +1,8 @@
+<a *ngFor="let item of ads | async;"
+   class="ad"
+   target="_blank"
+   [href]="item.link"
+   [style.backgroundColor]="item.bgcl">
+  <p [style.color]="item.ttcl" *ngIf="item.type === 1" [innerHTML]="item.data"></p>
+  <img class="ad-logo" *ngIf="item.type === 2" [src]="item.data" alt="">
+</a>

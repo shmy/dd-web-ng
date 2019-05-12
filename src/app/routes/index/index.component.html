@@ -1,5 +1,6 @@
 <div class="scroll full" appKeepScroll>
   <div class="responsive">
+    <app-ad></app-ad>
     <div [hidden]="!loadErr" class="load-err-wrap">
       <button class="load-err-btn" (click)="handleFetch()">加载失败，点击重试！</button>
     </div>

@@ -18,6 +18,7 @@ import {VideoPlaylistComponent} from './shared/video-playlist/video-playlist.com
 import {VideoFilterComponent} from './shared/video-filter/video-filter.component';
 import {CircleBtnComponent} from './shared/circle-btn/circle-btn.component';
 import {HistoryComponent} from './routes/history/history.component';
+import {AdComponent} from './shared/ad/ad.component';
 
 const title = '黑人视频全网免费视频在线观看';
 const keywords = '黑人视频,免费视频,免费电影,免费电视剧,免费综艺,免费动漫';
@@ -103,6 +104,7 @@ const routes: Routes = [
     VideoPlaylistComponent,
     VideoFilterComponent,
     CircleBtnComponent,
+    AdComponent,
     KeepScrollPositionDirective,
     TimeAgoPipe,
   ],
