@@ -44,7 +44,7 @@ export class VideoService {
 
   getVideoSearchResult(keyword: string) {
     if (!keyword.trim()) {
-      return of({result: []});
+      return of([]);
     }
     return this.http.get<any>(baseUrl + '/video/search', {
       params: {
