@@ -39,7 +39,7 @@ export class AsideComponent implements OnInit {
     {
       name: '历史记录',
       path: '/history',
-      icon: 'icon-dongman',
+      icon: 'icon-lishijilu',
     },
   ];
   auxiliaryItems: AsideItem[] = [

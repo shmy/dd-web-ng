@@ -30,10 +30,10 @@ export class TypeComponent implements OnInit {
   loading = false;
   classes = [];
   filter: FilterParams = getDefaultParams();
-
-  get noMore() {
-    return false;
-  }
+  noMore = false;
+  // get noMore() {
+  //   return false;
+  // }
 
   constructor(
     private videoService: VideoService,
@@ -65,6 +65,10 @@ export class TypeComponent implements OnInit {
     this.getHttpStream().subscribe(payload => {
       // console.log(payload)
       // this.last_page = payload.last_page;
+      if (payload.length === 0) {
+        this.noMore = true;
+        return;
+      }
       this.items.push.apply(this.items, payload);
     }, _ => this.loadErr = true);
   }

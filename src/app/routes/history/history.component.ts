@@ -24,5 +24,4 @@ export class HistoryComponent implements OnInit {
       this.sub.next(1);
     }, 0);
   }
-
 }

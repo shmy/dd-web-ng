@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lowdbService.initializeInstance();
     if (!environment.isElectron && environment.production) {
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),

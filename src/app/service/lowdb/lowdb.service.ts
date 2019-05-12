@@ -3,25 +3,33 @@ import * as Lowdb from 'lowdb';
 import {LocalforageAdapter} from './localforage.adapter';
 // 客户端用文件 web端用LocalforageAdapter
 // @ts-ignore
-const adapter = new LocalforageAdapter('dd-db');
+const adapter = new LocalforageAdapter('dd-db-v2');
 
 @Injectable({
   providedIn: 'root'
 })
 export class LowdbService {
-  private db: any;
-
+  private static _db: any;
+  private get db() {
+    return LowdbService._db;
+  }
   constructor() {
   }
 
-  initializeInstance() {
-    if (!this.db) {
-      Lowdb(adapter).then(instance => {
-        this.db = instance;
-        this.db.defaults({records: []})
-          .write();
-      });
-    }
+  static initializeInstance() {
+    console.log(123)
+    return new Promise((resolve, reject) => {
+      if (!LowdbService._db) {
+        Lowdb(adapter).then(instance => {
+          LowdbService._db = instance;
+          LowdbService._db.defaults({records: []})
+            .write();
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
   }
 
   getPage(page = 1, pageSize = 20) {

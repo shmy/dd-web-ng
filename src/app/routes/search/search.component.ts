@@ -28,9 +28,10 @@ export class SearchComponent implements OnInit {
   loading = false;
   filter = getDefaultParams();
   classes = [];
-  get noMore()  {
-    return false;
-  }
+  noMore = false;
+  // get noMore()  {
+  //   return false;
+  // }
   constructor(
     private videoService: VideoService,
     private activatedRoute: ActivatedRoute) { }
@@ -91,8 +92,12 @@ export class SearchComponent implements OnInit {
         // debounceTime(500),
       )
       .subscribe(payload => {
-        this.items.push.apply(this.items, payload);
         this.loading = false;
+        if (payload.length === 0) {
+          this.noMore = true;
+          return;
+        }
+        this.items.push.apply(this.items, payload);
       }, _ => this.loadErr = true);
   }
   handleFilterParamsChange() {

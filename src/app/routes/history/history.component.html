@@ -1,5 +1,9 @@
-<ul>
-  <li *ngFor="let item of result$ | async">
-    {{ item.name }} | {{ item.looek }} | {{ item.total }}
+<ul class="responsive history-warp">
+  <li class="history-item" *ngFor="let item of result$ | async">
+    <img class="history-item-pic" [src]="item.thumbnail" alt="">
+    <span>{{ item.name }}</span>
+    <span>{{ item.updated_at | timeAgo }}</span>
+    <span>{{ item.updated_at | timeAgo }}</span>
+<!--    {{ item.name }} | {{ item.looek }} | {{ item.total }}-->
   </li>
 </ul>
