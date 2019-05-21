@@ -25,7 +25,7 @@ export class NoopInterceptor implements HttpInterceptor {
           body: event.body['data']
         });
       }),
-      retry(2),
+      // retry(2),
       // catchError((err: HttpErrorResponse) => {
       //   return of(new HttpResponse({
       //     body: [null, err]

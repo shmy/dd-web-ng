@@ -2,15 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {of, zip} from 'rxjs';
 
-const baseUrl = 'https://dd.shmy.tech/api/v1';
-// const baseUrl = 'http://139.180.208.30/api/v1';
-// const baseUrl = 'http://localhost:3000/api/v1';
+// export const baseUrl = 'https://dd.shmy.tech/api/v1';
+// export const baseUrl = 'http://139.180.208.30/api/v1';
+export const baseUrl = 'http://localhost:3000/api/v1';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
-  constructor(private http: HttpClient) {
+  constructor(private httpClient: HttpClient) {
   }
 
   getRecommended() {
@@ -19,19 +19,19 @@ export class VideoService {
       // this.http.get<any>(baseUrl + '/video/new?pid=2'),
       // this.http.get<any>(baseUrl + '/video/new?pid=3'),
       // this.http.get<any>(baseUrl + '/video/new?pid=4'),
-      this.http.get<any>(baseUrl + '/video/hot?pid=1'),
-      this.http.get<any>(baseUrl + '/video/hot?pid=2'),
-      this.http.get<any>(baseUrl + '/video/hot?pid=3'),
-      this.http.get<any>(baseUrl + '/video/hot?pid=4'),
+      this.httpClient.get<any>(baseUrl + '/video/hot?pid=1'),
+      this.httpClient.get<any>(baseUrl + '/video/hot?pid=2'),
+      this.httpClient.get<any>(baseUrl + '/video/hot?pid=3'),
+      this.httpClient.get<any>(baseUrl + '/video/hot?pid=4'),
     );
   }
 
   getVideoInfo(id: string) {
-    return this.http.get<any>(baseUrl + '/video/detail/' + id);
+    return this.httpClient.get<any>(baseUrl + '/video/detail/' + id);
   }
 
   getVideoListByPage(pid, sort, area, year, source: string, page: number = 1, per_page: number = 20) {
-    return this.http.get<any>(baseUrl + '/video/' + pid, {
+    return this.httpClient.get<any>(baseUrl + '/video/' + pid, {
       params: {
         sort,
         area,
@@ -47,7 +47,7 @@ export class VideoService {
     if (!keyword.trim()) {
       return of([]);
     }
-    return this.http.get<any>(baseUrl + '/video/search', {
+    return this.httpClient.get<any>(baseUrl + '/video/search', {
       params: {
         keyword,
         page: '1',
@@ -61,7 +61,7 @@ export class VideoService {
     if (!keyword.trim()) {
       return of({result: []});
     }
-    return this.http.get<any>(baseUrl + '/video/search', {
+    return this.httpClient.get<any>(baseUrl + '/video/search', {
       params: {
         pid,
         sort,
@@ -81,7 +81,7 @@ export class VideoService {
     // canBeUpdated: boolean
     // releaseNotes: string
     // referenceLink: string
-    return this.http.get<any>(baseUrl + '/client/check-client-for-update', {
+    return this.httpClient.get<any>(baseUrl + '/client/check-client-for-update', {
       params: {
         platform,
         arch,

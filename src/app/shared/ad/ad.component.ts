@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {AdService} from '../ad.service';
+import {AdService} from '../../service/ad.service';
 import {fromPromise} from 'rxjs/internal-compatibility';
 
 @Component({

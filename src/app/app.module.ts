@@ -17,6 +17,9 @@ import {SnotifyModule, SnotifyService, ToastDefaults} from 'ng-snotify';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {LowdbService} from './service/lowdb/lowdb.service';
+import {AdDirective, DynamicModalComponent} from './shared/dynamic-modal/dynamic-modal.component';
+import { LoginComponent } from './shared/modal/login/login.component';
+import { VaptchaComponent } from './shared/vaptcha/vaptcha.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,10 @@ import {LowdbService} from './service/lowdb/lowdb.service';
     HeaderComponent,
     AsideComponent,
     NotFoundComponent,
+    DynamicModalComponent,
+    LoginComponent,
+    AdDirective,
+    VaptchaComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +52,7 @@ import {LowdbService} from './service/lowdb/lowdb.service';
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DynamicModalComponent, LoginComponent]
 })
 export class AppModule { }

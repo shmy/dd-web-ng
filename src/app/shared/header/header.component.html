@@ -4,7 +4,8 @@
       <i class="iconfont icon-menu" (click)="handleSwitchPack()"></i>
       <i (click)="handleBackRouter()" [hidden]="!isShowBack" style="margin-left: 5px" class="iconfont icon-rollback"></i>
     </div>
-    <img routerLink="/" class="logo" src="assets/images/logo.png" alt="">
+    <img (click)="handleBackRouter()" class="logo" src="assets/images/logo.png" alt="">
+<!--    <img routerLink="/" class="logo" src="assets/images/logo.png" alt="">-->
   </div>
   <div class="search-input rel" flex-box="1" flex="dir:left cross:center">
     <input class="no-drag" #searchBox [(ngModel)]="keyword" (input)="handleSearch()" (keyup.enter)="handleKeyEnter($event)" type="text" placeholder="搜索">

@@ -1,0 +1,8 @@
+<div (click)="handleContainerClick($event)" class="modal-container">
+  <div class="modal-body">
+    <div class="modal-header">
+      <span [hidden]="!closeVisible" (click)="close()" class="iconfont icon-Close modal-close"></span>
+    </div>
+    <ng-template ad-host></ng-template>
+  </div>
+</div>

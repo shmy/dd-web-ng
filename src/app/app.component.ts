@@ -13,6 +13,7 @@ import {LowdbService} from './service/lowdb/lowdb.service';
 })
 export class AppComponent implements OnInit {
   isSupportTouch = ('ontouchend' in document);
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -20,6 +21,16 @@ export class AppComponent implements OnInit {
     private ffmpegService: FfmpegService,
     private lowdbService: LowdbService,
   ) {
+  }
+
+  theCoreValuesOfChineseSocialism = ['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善'];
+  socialismIndex = 0;
+
+  get core() {
+    if (this.socialismIndex > this.theCoreValuesOfChineseSocialism.length - 1) {
+      this.socialismIndex = 0;
+    }
+    return this.theCoreValuesOfChineseSocialism[this.socialismIndex];
   }
 
   ngOnInit(): void {
@@ -59,15 +70,18 @@ export class AppComponent implements OnInit {
     document.documentElement.addEventListener('click', this.listenClick.bind(this), true);
     // }
   }
+
   private listenClick(e: MouseEvent) {
     this.builtFlowers(e.clientX, e.clientY);
   }
+
   private listenTouch(e: TouchEvent) {
     // @ts-ignore
     for (const item of e.changedTouches) {
       this.builtFlowers(item.clientX, item.clientY);
     }
   }
+
   private builtFlowers(clientX, clientY: number) {
     const item = document.createElement('div');
     item.className = 'fixed-item';
@@ -82,7 +96,8 @@ export class AppComponent implements OnInit {
     const top = clientY - 20;
     item.style.left = left + 'px';
     item.style.top = top + 'px';
-    item.innerHTML = '<i class="iconfont icon-nianhuo"></i>';
+    item.innerHTML = '<span class="">' + this.core + '</span>';
+    this.socialismIndex++;
     item.addEventListener('animationend', () => {
       item.remove();
     });

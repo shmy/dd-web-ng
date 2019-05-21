@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import * as Lowdb from 'lowdb';
 import {LocalforageAdapter} from './localforage.adapter';
+import {UserService} from '../user.service';
 // 客户端用文件 web端用LocalforageAdapter
 // @ts-ignore
 const adapter = new LocalforageAdapter('dd-db-v2');
@@ -13,6 +14,7 @@ export class LowdbService {
   private get db() {
     return LowdbService._db;
   }
+
   constructor() {
   }
 
@@ -21,8 +23,9 @@ export class LowdbService {
       if (!LowdbService._db) {
         Lowdb(adapter).then(instance => {
           LowdbService._db = instance;
-          LowdbService._db.defaults({records: []})
+          LowdbService._db.defaults({records: [], token: ''})
             .write();
+          UserService.token = LowdbService._db.get('token').value();
           resolve();
         });
       } else {
@@ -30,28 +33,35 @@ export class LowdbService {
       }
     });
   }
-
+  setToken(token: string) {
+    UserService.token = token;
+    this.db.set('token', token)
+      .write();
+  }
   getPage(page = 1, pageSize = 20) {
     return this.db.get('records')
       .orderBy('updated_at', 'desc')
       .take(pageSize)
       .value();
   }
+
   upsertRecord(record: Record) {
-    const row = this.db.get('records').find({ id: record.id }).value();
+    const row = this.db.get('records').find({id: record.id}).value();
     if (!row) {
       this.db.get('records').push(record).write();
     } else {
       this.upsertLooekById(record.id, record.looek, record.total, record.current);
     }
   }
+
   upsertLooekById(id: string, looek: number, total: number, current: number[]) {
     this.db.get('records')
-      .find({ id })
-      .assign({ looek, total, current, updated_at: new Date().getTime(), })
+      .find({id})
+      .assign({looek, total, current, updated_at: new Date().getTime(),})
       .write();
   }
 }
+
 export interface Record {
   id: string;
   name: string;

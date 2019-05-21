@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {reject} from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +15,7 @@ export class AdService {
           {
             type: AdType.TEXT,
             link: '/',
-            data: '黑人视频APP(安卓版)将于5月12日24:00进行关闭进入维护状态, <br> 具体开放时间请关注本站, 您可以继续在网页版使用其他功能',
+            data: '为了维护资源的稳定性, <br> 本站于5月21日开启登必须录后才能观看, <br> 黑人视频免费注册进行中, 注册即可免费在线观看 !',
             bgcl: '#202124',
             ttcl: '#FEC402'
           }

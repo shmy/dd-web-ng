@@ -7,6 +7,8 @@ import {VideoService} from '../../service/video.service';
 import {ActivationStart, Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {FfmpegService} from '../../service/ffmpeg.service';
+import {DynamicModalService} from '../dynamic-modal/dynamic-modal.service';
+import {LoginComponent} from '../modal/login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -23,13 +25,15 @@ export class HeaderComponent implements OnInit {
   isElectron = environment.isElectron;
   isMaximized = false;
   isShowBack = false;
+
   constructor(
     private asideService: AsideService,
     private videoService: VideoService,
     private router: Router,
     private _location: Location,
     private ffmpegService: FfmpegService,
-              ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -37,7 +41,7 @@ export class HeaderComponent implements OnInit {
         return event instanceof ActivationStart;
       })
     ).subscribe((event: ActivationStart) => {
-     this.isShowBack = event.snapshot.routeConfig.path === 'video/:id';
+      this.isShowBack = event.snapshot.routeConfig.path === 'video/:id';
     });
     this.router.events.pipe(
       filter(event => {
@@ -68,27 +72,33 @@ export class HeaderComponent implements OnInit {
   handleSwitchPack() {
     this.asideService.switchPack();
   }
-  handleKeyEnter({ target }) {
+
+  handleKeyEnter({target}) {
     this.router.navigateByUrl('/search?keyword=' + target.value);
     this.shouldBeShow = false;
   }
+
   handleSearch() {
     this.searchTerms.next(this.keyword);
   }
+
   handleJump(id: string) {
     this.router.navigateByUrl(`/video/${id}`);
     this.shouldBeShow = false;
   }
-  onClickedOutside({ target }) {
+
+  onClickedOutside({target}) {
     if (target === this.searchBox.nativeElement) {
       return;
     }
     this.shouldBeShow = false;
   }
+
   handleMinimize() {
     // @ts-ignore
     Electron.remote.getCurrentWindow().minimize();
   }
+
   handleSwitchMaximize() {
     // @ts-ignore
     const win = Electron.remote.getCurrentWindow();
@@ -101,6 +111,7 @@ export class HeaderComponent implements OnInit {
     win.setFullScreen(true);
     this.isMaximized = true;
   }
+
   handleQuit() {
     const QueueCount = this.ffmpegService.QueueCount;
     if (QueueCount === 0) {
@@ -114,9 +125,11 @@ export class HeaderComponent implements OnInit {
       });
     }
   }
+
   handleBackRouter() {
     this._location.back();
   }
+
   private doQuit() {
     // @ts-ignore
     Electron.remote.app.quit();

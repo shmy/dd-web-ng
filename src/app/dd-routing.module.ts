@@ -8,7 +8,6 @@ import {IndexSectionComponent} from './shared/index-section/index-section.compon
 import {ImageLazyLoadModule} from './directive/image-lazy-load/image-lazy-load.module';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {VideoItemComponent} from './shared/video-item/video-item.component';
-// import {DestroyPlayer} from './shared/guards/destroy-player';
 import {RouterModule, Routes} from '@angular/router';
 import {TimeAgoPipe} from './shared/time-ago.pipe';
 import {KeepScrollPositionDirective} from './directive/keep-scroll-position/kepp-scroll-position';
@@ -19,6 +18,7 @@ import {VideoFilterComponent} from './shared/video-filter/video-filter.component
 import {CircleBtnComponent} from './shared/circle-btn/circle-btn.component';
 import {HistoryComponent} from './routes/history/history.component';
 import {AdComponent} from './shared/ad/ad.component';
+import {AuthGuard} from './shared/guards/auth.guard';
 
 const title = '黑人视频全网免费视频在线观看';
 const keywords = '黑人视频,免费视频,免费电影,免费电视剧,免费综艺,免费动漫';
@@ -47,6 +47,7 @@ const routes: Routes = [
   {
     path: 'video/:id',
     component: VideoComponent,
+    canActivate: [AuthGuard],
     // canDeactivate: [DestroyPlayer]
   },
   {

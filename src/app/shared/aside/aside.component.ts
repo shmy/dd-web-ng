@@ -36,18 +36,23 @@ export class AsideComponent implements OnInit {
       path: '/type/4',
       icon: 'icon-dongman',
     },
+    // {
+    //   name: '历史记录',
+    //   path: '/history',
+    //   icon: 'icon-lishijilu',
+    // },
+  ];
+  auxiliaryItems: AsideItem[] = [
     {
       name: '历史记录',
       path: '/history',
       icon: 'icon-lishijilu',
     },
-  ];
-  auxiliaryItems: AsideItem[] = [
-    {
-      name: '客户端下载',
-      path: '/client',
-      icon: 'icon-yingyong',
-    },
+    // {
+    //   name: '客户端下载',
+    //   path: '/client',
+    //   icon: 'icon-yingyong',
+    // },
   ];
   isElectron = environment.isElectron;
   currentVersion = '';
