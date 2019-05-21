@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {of, zip} from 'rxjs';
 
-// export const baseUrl = 'https://dd.shmy.tech/api/v1';
+export const baseUrl = 'https://dd.shmy.tech/api/v1';
 // export const baseUrl = 'http://139.180.208.30/api/v1';
-export const baseUrl = 'http://localhost:3000/api/v1';
+// export const baseUrl = 'http://localhost:3000/api/v1';
 
 @Injectable({
   providedIn: 'root'

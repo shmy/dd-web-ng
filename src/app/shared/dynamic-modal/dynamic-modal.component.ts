@@ -48,7 +48,7 @@ export class DynamicModalComponent implements OnInit {
     };
   }
 
-  private handleContainerClick(e) {
+  handleContainerClick(e) {
     if (e.currentTarget === e.target && this.backgroundClickDismiss) {
       this.close();
     }
@@ -63,8 +63,10 @@ export class DynamicModalComponent implements OnInit {
 
 export class DynamicModalComponentExtended {
   data: any;
+
   close() {
   }
+
   setBackgroundClickDismiss(v: boolean) {
   }
 
