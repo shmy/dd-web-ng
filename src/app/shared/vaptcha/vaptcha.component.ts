@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-
+import {environment} from '../../../environments/environment';
 @Component({
   selector: 'app-vaptcha',
   templateUrl: './vaptcha.component.html',
@@ -14,11 +14,10 @@ export class VaptchaComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.scene);
     // @ts-ignore
     window.vaptcha({
       // 配置参数
-      vid: '5ce205cbfc650e0ab4eaed42', // 验证单元id
+      vid: environment.vaptchaId, // 验证单元id
       type: 'click', // 展现类型 点击式
       https: true,
       scene: this.scene,

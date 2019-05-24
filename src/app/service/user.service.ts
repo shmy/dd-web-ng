@@ -22,4 +22,8 @@ export class UserService {
   register(body) {
     return this.httpClient.post(baseUrl + '/user/register', body);
   }
+
+  me() {
+    return this.httpClient.get(baseUrl + '/user/me');
+  }
 }

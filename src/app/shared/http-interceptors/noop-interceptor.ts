@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse
+  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse, HttpHeaders
 } from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
-import {catchError, filter, map, retry, timeout} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {filter, map, retry, timeout} from 'rxjs/operators';
+import {UserService} from '../../service/user.service';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
@@ -11,7 +12,13 @@ export class NoopInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
+    const clonedRequest = req.clone({
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + UserService.token
+      })
+    });
+    return next.handle(clonedRequest).pipe(
       timeout(10000),
       filter(event => {
         return event instanceof HttpResponse;

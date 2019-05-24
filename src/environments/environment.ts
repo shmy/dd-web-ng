@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   isElectron: false,
+  vaptchaId: '5ce205cbfc650e0ab4eaed42',
+  baseUrl: 'http://localhost:3000/api/v1'
 };
 
 /*

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AsideService} from '../../service/aside/aside.service';
 import {environment} from '../../../environments/environment';
 import {VideoService} from '../../service/video.service';
 import {NotificationSharedServiceService} from '../../service/notification-shared-service.service';
+import {UserService} from '../../service/user.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-aside',
@@ -59,11 +61,16 @@ export class AsideComponent implements OnInit {
   platform = '';
   arch = '';
   isChecking = false;
+  info$: Observable<any>;
+
   constructor(
     public asideService: AsideService,
     private videoService: VideoService,
     private notificationSharedServiceService: NotificationSharedServiceService,
-  ) { }
+    private userService: UserService
+  ) {
+  }
+
   ngOnInit() {
 
     // this.notificationSharedServiceService.infoNotification('检查更新是出错，请稍后再试！');
@@ -83,6 +90,8 @@ export class AsideComponent implements OnInit {
       this.arch = process.arch;
       this.handleCheckForUpdates();
     }
+    this.info$ = this.userService.me();
+
   }
 
   handleCheckForUpdates() {
@@ -98,7 +107,8 @@ export class AsideComponent implements OnInit {
             .subscribe(e => {
               // @ts-ignore
               Electron.shell.openExternal(payload.referenceLink);
-            }, _ => {});
+            }, _ => {
+            });
         } else {
           this.notificationSharedServiceService.successNotification('你使用的已是最新版本！');
         }
