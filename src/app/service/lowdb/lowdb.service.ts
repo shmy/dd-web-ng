@@ -38,6 +38,11 @@ export class LowdbService {
     this.db.set('token', token)
       .write();
   }
+  clearToken() {
+    UserService.token = null;
+    this.db.set('token', null)
+      .write();
+  }
   getPage(page = 1, pageSize = 20) {
     return this.db.get('records')
       .orderBy('updated_at', 'desc')

@@ -3,6 +3,6 @@
     <img class="video-thumbnail" appLazyLoad [src]="item.pic" alt="">
     <div class="video-name t-ellip">{{ item.name }}</div>
     <div class="video-actor">{{ item.actor || "未知" }}</div>
-    <div class="video-generated_at">收录于 {{ item.created_at | timeAgo }}</div>
+    <div class="video-generated_at">收录于 {{ item.created_at | timeAgo }}  <span [hidden]="item.views <= 0" style="float: right; color: darkorange;">{{ item.views }}次观看</span></div>
   </li>
 </ul>

@@ -5,6 +5,10 @@ import {VideoService} from '../../service/video.service';
 import {NotificationSharedServiceService} from '../../service/notification-shared-service.service';
 import {UserService} from '../../service/user.service';
 import {Observable} from 'rxjs';
+import {LoginComponent} from '../modal/login/login.component';
+import {DynamicModalComponent} from '../dynamic-modal/dynamic-modal.component';
+import {DynamicModalService} from '../dynamic-modal/dynamic-modal.service';
+import {LowdbService} from '../../service/lowdb/lowdb.service';
 
 @Component({
   selector: 'app-aside',
@@ -67,7 +71,9 @@ export class AsideComponent implements OnInit {
     public asideService: AsideService,
     private videoService: VideoService,
     private notificationSharedServiceService: NotificationSharedServiceService,
-    private userService: UserService
+    public userService: UserService,
+    private dynamicModalService: DynamicModalService,
+    private lowdbService: LowdbService,
   ) {
   }
 
@@ -116,6 +122,16 @@ export class AsideComponent implements OnInit {
         this.isChecking = false;
         this.notificationSharedServiceService.errorNotification('检查更新时出错，请稍后再试！');
       });
+  }
+  handleLogin() {
+    this.dynamicModalService.open(LoginComponent, {
+      done: () => {
+        //
+      }
+    });
+  }
+  handleLogout() {
+    this.lowdbService.clearToken();
   }
 
 }

@@ -2,11 +2,19 @@
 <div class="aside" [style.width]="asideService.isPackUp ? '0' : '240px'">
  <div class="full scroll">
    <ng-container *ngIf="userService.logged">
-     <ng-container *ngIf="info$ | async as info">
-       <p>{{info.id}}</p>
-       <p>{{info.avatar_url}}</p>
-       <p>{{info.nickname}}</p>
-     </ng-container>
+<!--       <p>{{info.avatar_url}}</p>-->
+       <div *ngIf="info$ | async as info" style="text-align: center">
+         <p>{{info.username}}</p>
+         <p>{{info.nickname}}</p>
+         <p>
+           <a href="javascript:void(0);" (click)="handleLogout()">退出登录</a>
+         </p>
+       </div>
+   </ng-container>
+   <ng-container *ngIf="!userService.logged">
+     <p style="text-align: center">
+       <a href="javascript:void(0);" (click)="handleLogin()">欢迎你, 请登录</a>
+     </p>
    </ng-container>
    <div class="aside-item" flex="dir:left cross:center"
         [routerLink]="item.path"
