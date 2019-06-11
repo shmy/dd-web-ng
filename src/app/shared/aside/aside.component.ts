@@ -123,6 +123,7 @@ export class AsideComponent implements OnInit {
         this.notificationSharedServiceService.errorNotification('检查更新时出错，请稍后再试！');
       });
   }
+
   handleLogin() {
     this.dynamicModalService.open(LoginComponent, {
       done: () => {
@@ -130,8 +131,14 @@ export class AsideComponent implements OnInit {
       }
     });
   }
+
   handleLogout() {
     this.lowdbService.clearToken();
+  }
+
+  handleReLogin() {
+    this.handleLogout();
+    this.handleLogin();
   }
 
 }
