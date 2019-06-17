@@ -54,11 +54,11 @@ export class AsideComponent implements OnInit {
       path: '/history',
       icon: 'icon-lishijilu',
     },
-    // {
-    //   name: '客户端下载',
-    //   path: '/client',
-    //   icon: 'icon-yingyong',
-    // },
+    {
+      name: 'App下载',
+      path: '/client',
+      icon: 'icon-yingyong',
+    },
   ];
   isElectron = environment.isElectron;
   currentVersion = '';

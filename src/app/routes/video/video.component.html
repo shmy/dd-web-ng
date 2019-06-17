@@ -1,6 +1,11 @@
 <div class="full scroll">
   <div class="responsive">
-    <div style="height: 20px"></div>
+    <div *ngIf="showOpenInApp" class="open-in-app">
+      <img class="open-in-app-logo" src="assets/images/logo_app.png" alt="">
+      <span> 在 App 中打开, 体验更佳! </span>
+      <a class="open-in-app-btn" [href]="deepLink">打开</a>
+    </div>
+    <!--    <div style="height: 20px"></div>-->
     <div class="video-player-warp" flex="dir:left">
       <div class="rel" flex-box="1">
         <video #videoElement class="video-player" autoplay playsinline controls>

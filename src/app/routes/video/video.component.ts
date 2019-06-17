@@ -27,6 +27,8 @@ export class VideoComponent implements OnInit, OnDestroy {
   getDetail = new Subject<string>();
   isElectron = environment.isElectron;
   showNextMask = false;
+  showOpenInApp = false;
+  deepLink = '';
   resources = [];
   @ViewChild('playList') playList: VideoPlaylistComponent;
   @ViewChild('playListSide') playListSide: VideoPlaylistComponent;
@@ -53,6 +55,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.showOpenInApp = this.seoService.checkIsAndroidDevice();
     // 获取初始化播放位置
     const _ = this.route.snapshot.queryParamMap.get('_') || '';
     const cu: string[] = _.match(/^(\d+)\.(\d+)/);
@@ -135,6 +138,7 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.item = {};
       const id: string = e.get('id');
       this.getDetail.next(id);
+      this.deepLink = `ddapp://shmy_tech:1993/scheme_uri?type=video&data=${JSON.stringify({id})}`;
     });
   }
 

@@ -13,7 +13,7 @@ export class ClientComponent implements OnInit {
       icon: 'icon-android',
       color: '#79C05E',
       extension: 'apk',
-      link: 'http://moqingchi.gz01.bdysite.com/dd_app/app-release.apk'
+      link: 'https://coding.net/u/914111374/p/dd_update/git/raw/master/android/app-release.apk'
     },
     {
       platform: 'IOS',

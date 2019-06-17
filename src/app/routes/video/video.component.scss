@@ -149,3 +149,27 @@
     height: 220px;
   }
 }
+
+.open-in-app {
+  height: 45px;
+  width: 100%;
+  background-color: #67c23a;
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  .open-in-app-logo {
+    width: 35px;
+    height: 35px;
+  }
+  .open-in-app-btn {
+    height: 35px;
+    line-height: 35px;
+    background-color: deeppink;
+    padding: 0 20px;
+    color: white;
+    text-decoration: none;
+  }
+}
