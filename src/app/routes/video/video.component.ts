@@ -10,6 +10,7 @@ import {SeoService} from '../../service/seo.service';
 import {LowdbService} from '../../service/lowdb/lowdb.service';
 import {Location} from '@angular/common';
 import {VideoPlaylistComponent} from '../../shared/video-playlist/video-playlist.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video',
@@ -28,10 +29,11 @@ export class VideoComponent implements OnInit, OnDestroy {
   isElectron = environment.isElectron;
   showNextMask = false;
   showOpenInApp = false;
-  deepLink = '';
+  deepLink: any = '';
   resources = [];
   @ViewChild('playList') playList: VideoPlaylistComponent;
   @ViewChild('playListSide') playListSide: VideoPlaylistComponent;
+
   get nextTipText() {
     // todo
     // if (this.item.remote_url && this.item.remote_url[this.videoIndex + 1]) {
@@ -39,17 +41,20 @@ export class VideoComponent implements OnInit, OnDestroy {
     // }
     return '';
   }
+
   get currentVideo() {
     if (this.resources.length < 1) {
       return {};
     }
     return this.resources[this.current[0]].playlist[this.current[1]];
   }
+
   constructor(
     private route: ActivatedRoute,
     private seoService: SeoService,
     private videoService: VideoService,
     private lowdbService: LowdbService,
+    private domSanitizerdomSanitizer: DomSanitizer,
     private location: Location,
   ) {
   }
@@ -138,7 +143,8 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.item = {};
       const id: string = e.get('id');
       this.getDetail.next(id);
-      this.deepLink = `ddapp://shmy_tech:1993/scheme_uri?type=video&data=${JSON.stringify({id})}`;
+      const url = encodeURI(`ddapp://shmy:80/scheme_uri?type=video&data=${JSON.stringify({id: +id})}`);
+      this.deepLink = this.domSanitizerdomSanitizer.bypassSecurityTrustUrl(url);
     });
   }
 
@@ -178,12 +184,12 @@ export class VideoComponent implements OnInit, OnDestroy {
         //   this.circleBtn.doStart();
         // }
       });
-      this.player.on('timeupdate', ({ detail }) => {
+      this.player.on('timeupdate', ({detail}) => {
         if (detail.plyr.playing) {
           this.lowdbService.upsertLooekById(this.item.id, detail.plyr.currentTime, detail.plyr.duration, this.current);
         }
       });
-      this.player.on('loadedmetadata', ({ detail }) => {
+      this.player.on('loadedmetadata', ({detail}) => {
         const record = {
           id: this.item.id,
           name: this.item.name,
