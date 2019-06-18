@@ -14,8 +14,8 @@ export class AdService {
         resolve([
           {
             type: AdType.TEXT,
-            link: '/',
-            data: '为了维护资源的稳定性, <br> 本站于5月21日开启必须登录后才能观看, <br> 黑人视频免费注册进行中, 注册即可免费在线观看 !',
+            link: '/client',
+            data: '黑人视频 安卓App 已发布 点击立即下载',
             bgcl: '#202124',
             ttcl: '#FEC402'
           }
