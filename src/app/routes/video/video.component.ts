@@ -106,36 +106,36 @@ export class VideoComponent implements OnInit, OnDestroy {
           ].join(','));
           // 分享功能
           // @ts-ignore
-          socialShare('#share', {
-            sites: ['wechat', 'qzone', 'qq', 'weibo'],
-            url: window.location.href,
-            source: 'https://v.shmy.tech',
-            title: `《${this.item.name}》在线观看 - 黑人视频`,
-            description: this.item.des,
-            image: this.item.thumbnail,
-            wechatQrcodeTitle: '微信扫一扫：分享给朋友',
-            wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本页面分享至朋友圈。</p>',
-          });
+          // socialShare('#share', {
+          //   sites: ['wechat', 'qzone', 'qq', 'weibo'],
+          //   url: window.location.href,
+          //   source: 'https://v.shmy.tech',
+          //   title: `《${this.item.name}》在线观看 - 黑人视频`,
+          //   description: this.item.des,
+          //   image: this.item.thumbnail,
+          //   wechatQrcodeTitle: '微信扫一扫：分享给朋友',
+          //   wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本页面分享至朋友圈。</p>',
+          // });
           // 评论功能
-          const gitalk = new Gitalk({
-            clientID: 'a5911b5079acafacd845',
-            clientSecret: 'fec6ba6c2177893b985a5de7c84787a0b3cd1e4f',
-            repo: 'dd-web-comments',
-            owner: 'shmy',
-            admin: ['shmy'],
-            title: this.item.name,
-            id: this.route.snapshot.paramMap.get('id'),
-            body: `### ${this.item.name}
+//           const gitalk = new Gitalk({
+//             clientID: 'a5911b5079acafacd845',
+//             clientSecret: 'fec6ba6c2177893b985a5de7c84787a0b3cd1e4f',
+//             repo: 'dd-web-comments',
+//             owner: 'shmy',
+//             admin: ['shmy'],
+//             title: this.item.name,
+//             id: this.route.snapshot.paramMap.get('id'),
+//             body: `### ${this.item.name}
+//
+// ![${this.item.name}](${this.item.pic})
+//
+// >${this.item.des}
+//
+// [>>点击进入在线观看](${window.location.href})`,
+//             distractionFreeMode: false  // Facebook-like distraction free mode
+//           });
 
-![${this.item.name}](${this.item.pic})
-
->${this.item.des}
-
-[>>点击进入在线观看](${window.location.href})`,
-            distractionFreeMode: false  // Facebook-like distraction free mode
-          });
-
-          gitalk.render('gitalk-container');
+          // gitalk.render('gitalk-container');
         }
       }
     });
@@ -143,8 +143,8 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.item = {};
       const id: string = e.get('id');
       this.getDetail.next(id);
-      const url = encodeURI(`ddapp://shmy:80/scheme_uri?type=video&data=${JSON.stringify({id: +id})}`);
-      this.deepLink = this.domSanitizerdomSanitizer.bypassSecurityTrustUrl(url);
+      // const url = encodeURI(`ddapp://shmy:80/scheme_uri?type=video&data=${JSON.stringify({id: +id})}`);
+      // this.deepLink = this.domSanitizerdomSanitizer.bypassSecurityTrustUrl(url);
     });
   }
 

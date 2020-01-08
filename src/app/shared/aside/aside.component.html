@@ -1,26 +1,26 @@
 <div (click)="asideService.switchPack()" [hidden]="asideService.isPackUp" class="mask"></div>
 <div class="aside" [style.width]="asideService.isPackUp ? '0' : '240px'">
   <div class="full scroll">
-    <ng-container *ngIf="userService.logged">
-      <!--       <p>{{info.avatar_url}}</p>-->
-      <div *ngIf="info$ | async as info else a" style="text-align: center">
-        <p>{{info.username}}</p>
-        <p>{{info.nickname}}</p>
-        <p>
-          <a href="javascript:void(0);" (click)="handleLogout()">退出登录</a>
-        </p>
-      </div>
-    </ng-container>
-    <ng-template #a>
-      <p style="text-align: center">
-        <a href="javascript:void(0);" (click)="handleReLogin()">重新登录</a>
-      </p>
-    </ng-template>
-    <ng-container *ngIf="!userService.logged">
-      <p style="text-align: center">
-        <a href="javascript:void(0);" (click)="handleLogin()">欢迎你, 请登录</a>
-      </p>
-    </ng-container>
+<!--    <ng-container *ngIf="userService.logged">-->
+<!--      &lt;!&ndash;       <p>{{info.avatar_url}}</p>&ndash;&gt;-->
+<!--      <div *ngIf="info$ | async as info else a" style="text-align: center">-->
+<!--        <p>{{info.username}}</p>-->
+<!--        <p>{{info.nickname}}</p>-->
+<!--        <p>-->
+<!--          <a href="javascript:void(0);" (click)="handleLogout()">退出登录</a>-->
+<!--        </p>-->
+<!--      </div>-->
+<!--    </ng-container>-->
+<!--    <ng-template #a>-->
+<!--      <p style="text-align: center">-->
+<!--        <a href="javascript:void(0);" (click)="handleReLogin()">重新登录</a>-->
+<!--      </p>-->
+<!--    </ng-template>-->
+<!--    <ng-container *ngIf="!userService.logged">-->
+<!--      <p style="text-align: center">-->
+<!--        <a href="javascript:void(0);" (click)="handleLogin()">欢迎你, 请登录</a>-->
+<!--      </p>-->
+<!--    </ng-container>-->
     <div class="aside-item" flex="dir:left cross:center"
          [routerLink]="item.path"
          routerLinkActive="router-active"
