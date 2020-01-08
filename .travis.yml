@@ -18,4 +18,4 @@ script:
 after_success:
   - cp deploy/nginx.conf dist/nginx.conf
   - cp deploy/Dockerfile dist/Dockerfile
-  - sshpass -p "raspberry" scp -P 6000 -r ./dist pi@47.75.55.94:/home/pi/docker
+  - sshpass -p "$SSH_PWD" scp -P 6000 -o stricthostkeychecking=no -r ./dist pi@47.75.55.94:/home/pi/docker
