@@ -176,6 +176,12 @@ export class VideoComponent implements OnInit, OnDestroy {
       // @ts-ignore
       this.player = new Plyr(videoElement, {
         controls: this.videoService.getVideoPlayerControls(),
+        speed: {selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]},
+        i18n: {
+          speed: '速度',
+          normal: '正常',
+        },
+        keyboard: {focused: true, global: true},
       });
       this.player.on('ended', () => {
         // todo

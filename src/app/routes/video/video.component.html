@@ -8,7 +8,7 @@
     <!--    <div style="height: 20px"></div>-->
     <div class="video-player-warp" flex="dir:left">
       <div class="rel" flex-box="1">
-        <video #videoElement class="video-player" autoplay playsinline controls>
+        <video #videoElement [poster]="item.pic ? item.pic : ''" class="video-player" autoplay playsinline controls>
         </video>
         <div [hidden]="!showNextMask" class="next-mask" flex="dir:top main:center cross:center">
           <app-circle-btn (OnConfirm)="handleConfirmNext()" #circleBtn></app-circle-btn>
