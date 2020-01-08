@@ -16,8 +16,5 @@ after_script:
   - cp deploy/nginx.conf dist/nginx.conf
   - cp deploy/Dockerfile dist/Dockerfile
   - cd dist
-  - docker build -t dd-web .
-  - rm -rf dist/nginx.conf
-  - rm -rf dist/Dockerfile
-  - docker save dd-web:latest | gzip > dd-web.tar.gz
+  - sshpass -p "$SSH_PWD" scp -P 6000 -r ./dist pi@47.75.55.94:/home/pi/docker
   - ls -a
