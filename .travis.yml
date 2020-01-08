@@ -13,3 +13,5 @@ script:
   - npm run build
 after_script:
   - docker build -t dd-web .
+  - docker save -o dd-web.tar dd-web:latest
+  - ls -a
