@@ -12,9 +12,12 @@ script:
   # - ng lint
   - npm run build
 after_script:
+  # Sending build context
   - cp deploy/nginx.conf dist/nginx.conf
   - cp deploy/Dockerfile dist/Dockerfile
   - cd dist
   - docker build -t dd-web .
-  - docker save -o dd-web.tar dd-web:latest
+  - rm -rf dist/nginx.conf
+  - rm -rf dist/Dockerfile
+  - docker save dd-web:latest | gzip > dd-web.tar.gz
   - ls -a
