@@ -7,6 +7,7 @@ addons:
   apt:
     packages:
       - sshpass
+      - curl
 branches:
   only:
     - master
@@ -19,3 +20,4 @@ after_success:
   - cp deploy/nginx.conf dist/nginx.conf
   - cp deploy/Dockerfile dist/Dockerfile
   - sshpass -p "$SSH_PWD" scp -P $SSH_PORT -o stricthostkeychecking=no -r ./dist $SSH_USER@$SSH_HOST:$SSH_PATH
+  - curl $BUILD_URL
