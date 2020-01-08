@@ -19,6 +19,5 @@ after_script:
   # Sending build context
   - cp deploy/nginx.conf dist/nginx.conf
   - cp deploy/Dockerfile dist/Dockerfile
-  - cd dist
-  - sshpass -p "$SSH_PWD" scp -P 6000 -r ./dist pi@47.75.55.94:/home/pi/docker
+  - sshpass -p "$SSH_PWD" scp -P $SSH_PORT -r ./dist $SSH_USER@$SSH_HOST:/home/pi/docker
   - ls -a
