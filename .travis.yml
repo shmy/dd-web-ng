@@ -3,6 +3,10 @@ node_js:
   - "12.14.0"
 dist: trusty
 sudo: required
+addons:
+  apt:
+    packages:
+      - sshpass
 branches:
   only:
     - master
