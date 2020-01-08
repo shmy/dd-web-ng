@@ -15,9 +15,7 @@ before_script:
 script:
   # - ng lint
   - npm run build
-after_script:
-  # Sending build context
+after_success:
   - cp deploy/nginx.conf dist/nginx.conf
   - cp deploy/Dockerfile dist/Dockerfile
-  - sshpass -p "$SSH_PWD" scp -P $SSH_PORT -r ./dist $SSH_USER@$SSH_HOST:/home/pi/docker
-  - ls -a
+  - sshpass -p "raspberry" scp -P 6000 -r ./dist pi@47.75.55.94:/home/pi/docker
